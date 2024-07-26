@@ -1,6 +1,6 @@
 package br.com.soat8.techchallenge.core.service;
 
-import br.com.soat8.techchallenge.core.port.in.CadastrarClienteUseCase;
+import br.com.soat8.techchallenge.core.port.in.CreateCustomerUseCase;
 import br.com.soat8.techchallenge.core.port.out.SaveCustomerPort;
 import br.com.soat8.techchallenge.domain.Customer;
 import org.springframework.stereotype.Service;

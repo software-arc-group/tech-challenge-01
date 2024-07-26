@@ -6,16 +6,16 @@ import br.com.soat8.techchallenge.domain.Customer;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CadastrarClienteService implements CadastrarClienteUseCase {
+public class CreateCustomerService implements CreateCustomerUseCase {
 
     private final SaveCustomerPort saveCustomerPort;
 
-    public CadastrarClienteService(SaveCustomerPort saveCustomerPort) {
+    public CreateCustomerService(SaveCustomerPort saveCustomerPort) {
         this.saveCustomerPort = saveCustomerPort;
     }
 
     @Override
-    public void cadastrarCliente(Customer customer) {
+    public void createCustomer(Customer customer) {
         saveCustomerPort.saveCustomer(customer);
     }
 }

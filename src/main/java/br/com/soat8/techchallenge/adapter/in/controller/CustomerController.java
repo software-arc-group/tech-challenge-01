@@ -2,6 +2,9 @@ package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.SaveCustomerUseCase;
 import br.com.soat8.techchallenge.domain.Customer;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +20,10 @@ public class CustomerController {
         this.saveCustomerUseCase = saveCustomerUseCase;
     }
 
-    @PostMapping("/cliente")
-    public void cadastrarCliente(@RequestBody Customer customer) {
+    @PostMapping("/customer")
+    public ResponseEntity<Void> cadastrarCliente(@Valid @RequestBody Customer customer) {
         saveCustomerUseCase.saveCustomer(customer);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

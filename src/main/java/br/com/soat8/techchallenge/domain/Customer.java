@@ -1,5 +1,7 @@
 package br.com.soat8.techchallenge.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ public class Customer {
     private String name;
 
     @Email(message = "Email should be valid")
+    @JsonProperty("email_address")
     private String emailAddress;
 
     @Pattern(regexp = "\\d{11}", message = "CPF should be 11 digits")

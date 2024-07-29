@@ -2,6 +2,7 @@ package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.SaveCustomerUseCase;
 import br.com.soat8.techchallenge.domain.Customer;
+
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -6,6 +6,8 @@ import br.com.soat8.techchallenge.core.port.out.CustomerPort;
 import br.com.soat8.techchallenge.domain.Customer;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class CustomerPersistenceAdapter implements CustomerPort {
 
@@ -18,6 +20,19 @@ public class CustomerPersistenceAdapter implements CustomerPort {
     @Override
     public void saveCustomer(Customer customer) {
         save(customer);
+    }
+
+    @Override
+    public Customer searchCustomerCpf(String cpf) {
+
+        Customer objCustomer = new Customer();
+        Optional<CustomerEntity> customerEntity = customerRepository.findByCpf(cpf);
+        if(customerEntity.isPresent()){
+            objCustomer.setCpf(customerEntity.get().getCpf());
+            objCustomer.setName(customerEntity.get().getName());
+            objCustomer.setEmailAddress(customerEntity.get().getEmailAddress());
+        }
+        return objCustomer;
     }
 
     @Override

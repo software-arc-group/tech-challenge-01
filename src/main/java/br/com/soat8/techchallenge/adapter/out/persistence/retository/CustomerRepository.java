@@ -12,4 +12,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, UUID> 
     Optional<CustomerEntity> findByCpf(String cpf);
 
     Optional<CustomerEntity> findByEmailAddress(String emailAddress);
+
+    CustomerEntity searchCustomerCpf(String cpf);
 }

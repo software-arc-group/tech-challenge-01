@@ -4,6 +4,7 @@ import br.com.soat8.techchallenge.core.port.in.CustomerUseCase;
 import br.com.soat8.techchallenge.core.port.out.CustomerPort;
 import br.com.soat8.techchallenge.domain.Customer;
 import br.com.soat8.techchallenge.domain.exception.CpfAlreadyExistsException;
+import br.com.soat8.techchallenge.domain.exception.CpfNotExistsException;
 import br.com.soat8.techchallenge.domain.exception.EmailAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,18 @@ public class CustomerService implements CustomerUseCase {
         existCpf(customer);
         existEmail(customer);
         customerPort.saveCustomer(customer);
+    }
+
+    @Override
+    public Customer searchCustomerCpf(String cpf) {
+        notExistCpf(cpf);
+        return customerPort.searchCustomerCpf(cpf);
+    }
+
+    private void notExistCpf(String cpf) {
+        if (customerPort.findByCpf(cpf)){
+            throw new CpfNotExistsException("CPF does not exist: " + cpf);
+        }
     }
 
     private void existCpf(Customer customer) {

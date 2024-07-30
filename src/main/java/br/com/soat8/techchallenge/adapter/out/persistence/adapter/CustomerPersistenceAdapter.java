@@ -4,8 +4,6 @@ import br.com.soat8.techchallenge.adapter.out.persistence.retository.CustomerRep
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
 import br.com.soat8.techchallenge.core.port.out.SaveCustomerPort;
 import br.com.soat8.techchallenge.domain.Customer;
-import br.com.soat8.techchallenge.domain.exception.CpfAlreadyExistsException;
-import br.com.soat8.techchallenge.domain.exception.EmailAlreadyExistsException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,11 +17,17 @@ public class CustomerPersistenceAdapter implements SaveCustomerPort {
 
     @Override
     public void saveCustomer(Customer customer) {
-
-        existCpf(customer);
-        existEmail(customer);
-
         save(customer);
+    }
+
+    @Override
+    public Boolean findByCpf(String cpf) {
+        return customerRepository.findByCpf(cpf).isPresent();
+    }
+
+    @Override
+    public Boolean findByEmailAddress(String emailAddress) {
+        return customerRepository.findByEmailAddress(emailAddress).isPresent();
     }
 
     private void save(Customer customer) {
@@ -34,15 +38,4 @@ public class CustomerPersistenceAdapter implements SaveCustomerPort {
         customerRepository.save(customerEntity);
     }
 
-    private void existCpf(Customer customer) {
-        if (customerRepository.findByCpf(customer.getCpf()).isPresent()){
-            throw new CpfAlreadyExistsException("CPF already exists: " + customer.getCpf());
-        }
-    }
-
-    private void existEmail(Customer customer) {
-        if (customerRepository.findByEmailAddress(customer.getEmailAddress()).isPresent()){
-            throw new EmailAlreadyExistsException("Email already exists: " + customer.getEmailAddress());
-        }
-    }
 }

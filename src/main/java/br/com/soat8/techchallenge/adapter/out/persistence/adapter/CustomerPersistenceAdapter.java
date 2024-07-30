@@ -2,12 +2,12 @@ package br.com.soat8.techchallenge.adapter.out.persistence.adapter;
 
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.CustomerRepository;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
-import br.com.soat8.techchallenge.core.port.out.SaveCustomerPort;
+import br.com.soat8.techchallenge.core.port.out.CustomerPort;
 import br.com.soat8.techchallenge.domain.Customer;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerPersistenceAdapter implements SaveCustomerPort {
+public class CustomerPersistenceAdapter implements CustomerPort {
 
     private final CustomerRepository customerRepository;
 

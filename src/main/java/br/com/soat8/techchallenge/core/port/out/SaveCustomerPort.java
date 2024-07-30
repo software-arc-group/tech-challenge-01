@@ -4,4 +4,8 @@ import br.com.soat8.techchallenge.domain.Customer;
 
 public interface SaveCustomerPort {
     void saveCustomer(Customer customer);
+
+    Boolean findByCpf(String cpf);
+
+    Boolean findByEmailAddress(String emailAddress);
 }

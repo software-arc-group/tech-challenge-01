@@ -17,6 +17,7 @@ public class Customer {
 
     @Email(message = "Email should be valid")
     @JsonProperty("email_address")
+
     private String emailAddress;
 
     @Pattern(regexp = "\\d{11}", message = "CPF should be 11 digits")

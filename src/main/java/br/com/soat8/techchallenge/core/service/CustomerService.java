@@ -31,7 +31,7 @@ public class CustomerService implements CustomerUseCase {
     }
 
     private void notExistCpf(String cpf) {
-        if (customerPort.findByCpf(cpf)){
+        if (!customerPort.findByCpf(cpf)){
             throw new CpfNotExistsException("CPF does not exist: " + cpf);
         }
     }

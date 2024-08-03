@@ -28,6 +28,7 @@ public class CustomerPersistenceAdapter implements CustomerPort {
         Customer objCustomer = new Customer();
         Optional<CustomerEntity> customerEntity = customerRepository.findByCpf(cpf);
         if(customerEntity.isPresent()){
+            objCustomer.setId(customerEntity.get().getCustomerId().toString());
             objCustomer.setCpf(customerEntity.get().getCpf());
             objCustomer.setName(customerEntity.get().getName());
             objCustomer.setEmailAddress(customerEntity.get().getEmailAddress());

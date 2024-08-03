@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer {
 
+    private String id;
+
     private String name;
 
     @Email(message = "Email should be valid")

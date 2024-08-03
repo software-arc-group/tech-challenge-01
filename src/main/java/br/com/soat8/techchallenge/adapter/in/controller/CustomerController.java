@@ -27,7 +27,7 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/searchCustomerCpf")
+    @GetMapping("/customer")
     public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}") String cpf) {
 
         Customer result = customerUseCase.searchCustomerCpf(cpf);

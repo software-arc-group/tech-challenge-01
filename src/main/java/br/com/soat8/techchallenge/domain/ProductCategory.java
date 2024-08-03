@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+@Builder
+public class ProductCategory {
 
-    private String id;
+    private UUID productCategoryId;
 
-    private String name;
+    private String description;
 
-    @Email(message = "Email should be valid")
-    @JsonProperty("email_address")
-    private String emailAddress;
-
-    @Pattern(regexp = "\\d{11}", message = "CPF should be 11 digits")
-    private String cpf;
+    private List<Product> products;
 }

@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/lanchonete")
+@RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
+
+    public static final String BASE_URL = "/lanchonete/customer";
 
     private final CustomerUseCase customerUseCase;
 
@@ -20,15 +22,15 @@ public class CustomerController {
         this.customerUseCase = customerUseCase;
     }
 
-    @PostMapping("/customer")
+    @PostMapping
     public ResponseEntity<Void> cadastrarCliente(@Valid @RequestBody Customer customer) {
         customerUseCase.saveCustomer(customer);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/customer")
-    public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}") String cpf) {
+    @GetMapping
+    public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "CPF Invalido") String cpf) {
 
         Customer result = customerUseCase.searchCustomerCpf(cpf);
 

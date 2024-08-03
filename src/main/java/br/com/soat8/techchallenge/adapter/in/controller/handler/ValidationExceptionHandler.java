@@ -1,6 +1,7 @@
 package br.com.soat8.techchallenge.adapter.in.controller.handler;
 
 import br.com.soat8.techchallenge.domain.exception.CpfAlreadyExistsException;
+import br.com.soat8.techchallenge.domain.exception.CpfNotExistsException;
 import br.com.soat8.techchallenge.domain.exception.EmailAlreadyExistsException;
 import br.com.soat8.techchallenge.domain.exception.ProductCategoryNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,10 @@ public class ValidationExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    @ExceptionHandler({CpfAlreadyExistsException.class, EmailAlreadyExistsException.class, ProductCategoryNotFoundException.class})
+    @ExceptionHandler({CpfAlreadyExistsException.class,
+            EmailAlreadyExistsException.class,
+            ProductCategoryNotFoundException.class,
+            CpfNotExistsException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<String> handleConflictExceptions(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);

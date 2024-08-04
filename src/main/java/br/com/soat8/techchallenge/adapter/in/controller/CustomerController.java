@@ -4,16 +4,17 @@ import br.com.soat8.techchallenge.core.port.in.CustomerUseCase;
 import br.com.soat8.techchallenge.domain.Customer;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/lanchonete")
+@RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
+
+    public static final String BASE_URL = "/lanchonete/customer";
 
     private final CustomerUseCase customerUseCase;
 
@@ -21,10 +22,19 @@ public class CustomerController {
         this.customerUseCase = customerUseCase;
     }
 
-    @PostMapping("/customer")
+    @PostMapping
     public ResponseEntity<Void> cadastrarCliente(@Valid @RequestBody Customer customer) {
         customerUseCase.saveCustomer(customer);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping
+    public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "CPF Invalido") String cpf) {
+
+        Customer result = customerUseCase.searchCustomerCpf(cpf);
+
+        return ResponseEntity.ok(result);
+    }
+
 }

@@ -9,6 +9,7 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Spring Boot docker-compose](https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1)
 - [MySql](https://dev.mysql.com/doc/)
+- [Liquibase](https://docs.liquibase.com/home.html)
 - [Swagger](https://swagger.io/docs/)
 - [QR Code do Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference/qr-dynamic/_instore_orders_qr_seller_collectors_user_id_pos_external_pos_id_qrs/post)
 
@@ -36,6 +37,15 @@ http POST :8080/lanchonete/customer
   "cpf": "29295965612",
   "email_address": "string"
 }
+
+```
+
+```
+Para criação do cliente:
+
+http GET :8080/lanchonete/customer
+
+  "cpf": "29295965612",
 
 ```
 

@@ -5,6 +5,8 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.sql.Types;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +14,10 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "product_category")
-public class ProductCategoryEntity {
+public class ProductCategoryEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -4993917234523751949L;
 
     @Id
     @GeneratedValue(generator = "UUID2")

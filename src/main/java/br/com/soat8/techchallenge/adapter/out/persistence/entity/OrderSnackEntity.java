@@ -2,22 +2,34 @@ package br.com.soat8.techchallenge.adapter.out.persistence.entity;
 
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "order_snack")
-public class OrderSnackEntity {
+public class OrderSnackEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 2769090853146063559L;
 
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(generator = "UUID2")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "order_snack_id")
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID orderSnackId;
 
     @ManyToOne
@@ -31,7 +43,7 @@ public class OrderSnackEntity {
     @Column(name = "progress", nullable = false)
     private OrderProgress progress;
 
-    @CreationTimestamp
+    @JdbcTypeCode(Types.TIMESTAMP)
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 }

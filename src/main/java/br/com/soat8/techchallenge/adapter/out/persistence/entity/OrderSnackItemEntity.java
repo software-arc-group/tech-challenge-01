@@ -1,13 +1,17 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "order_snack_item")
 public class OrderSnackItemEntity {
@@ -27,4 +31,7 @@ public class OrderSnackItemEntity {
 
     @Column(name = "amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal amount;
+
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 }

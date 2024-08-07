@@ -1,16 +1,19 @@
 package br.com.soat8.techchallenge.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderSnackItem {
-     private Product product;
-     private Integer amount;
-
-    BigDecimal getTotalPrice(){
-        BigDecimal amountAsBigDecimal = BigDecimal.valueOf(amount);
-        return product.getPrice().multiply(amountAsBigDecimal);
-    }
+     @JsonProperty("product_id")
+     private UUID productId;
+     private BigDecimal price;
+     private Integer quantity;
 }

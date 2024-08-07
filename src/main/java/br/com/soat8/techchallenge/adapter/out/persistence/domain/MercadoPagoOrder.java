@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MercadoPagoOrder {
-    private MercadoPagoCashOut cashOut;
     private String description;
+    @JsonProperty("external_reference")
     private String externalReference;
     private List<MercadoPagoItem> items;
     private String title;
+    @JsonProperty("total_amount")
     private BigDecimal totalAmount;
 }

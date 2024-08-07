@@ -2,6 +2,7 @@ package br.com.soat8.techchallenge.adapter.out.persistence.entity;
 
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Builder
 @Entity
 @Table(name = "order_snack")
 public class OrderSnackEntity {

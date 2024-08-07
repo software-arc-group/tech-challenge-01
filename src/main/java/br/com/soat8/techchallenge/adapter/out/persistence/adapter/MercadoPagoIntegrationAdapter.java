@@ -7,52 +7,64 @@ import br.com.soat8.techchallenge.adapter.out.persistence.domain.MercadoPagoOrde
 import br.com.soat8.techchallenge.adapter.out.persistence.domain.QRCodeData;
 import br.com.soat8.techchallenge.core.port.out.MercadoPagoIntegrationPort;
 import br.com.soat8.techchallenge.domain.OrderSnack;
-import jakarta.persistence.criteria.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Component
 public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort {
-    @Value("integration.mercadopago.url")
+    @Value("${integration.mercadopago.url}")
     private String url;
-    @Value("integration.mercadopago.path")
+    @Value("${integration.mercadopago.path}")
     private String path;
-    @Value("integration.mercadopago.accesstoken")
+    @Value("${integration.mercadopago.accesstoken}")
     private String accessToken;
+    @Value("${integration.mercadopago.externalReference}")
+    private String externalReference;
 
-    @Autowired
+    private static final String DEFAULT_DESCRIPTION = "Order Snack";
+
     private RestTemplate restTemplate;
 
+    public MercadoPagoIntegrationAdapter(){
+        restTemplate = new RestTemplate();
+    }
 
     @Override
-    public String requestQrData(Order order) {
+    public String requestQrData(OrderSnack order) {
         String fullUrl = url + "/" +  path + "?access_token=" + accessToken;
+        MercadoPagoOrder mercadoPagoOrder = convert(order);
+       try{
+           ResponseEntity<QRCodeData> response = restTemplate.postForEntity(fullUrl, mercadoPagoOrder, QRCodeData.class);
 
-        ResponseEntity<QRCodeData> response = restTemplate.postForEntity(fullUrl, order, QRCodeData.class);
-
-        return Objects.requireNonNull(response.getBody()).getQrData();
+           return Objects.requireNonNull(response.getBody()).getQrData();
+       }catch (Exception ex){
+           throw new RuntimeException(ex.getMessage());
+       }
     }
 
     public MercadoPagoOrder convert(OrderSnack orderSnack) {
         MercadoPagoOrder mercadoPagoOrder = new MercadoPagoOrder();
+        mercadoPagoOrder.setDescription(DEFAULT_DESCRIPTION);
+        mercadoPagoOrder.setTitle(DEFAULT_DESCRIPTION);
+        mercadoPagoOrder.setExternalReference(externalReference);
+        mercadoPagoOrder.setTotalAmount(orderSnack.getTotalPrice());
 
-        mercadoPagoOrder.setExternalReference("LANCHONETE1");
         mercadoPagoOrder.setItems(orderSnack.getItems().stream()
                 .map(item -> new MercadoPagoItem(
-                        item.getProduct().getProductId().toString(),
-                        item.getProduct().getName(),
-                        item.getProduct().getPrice(),
-                        item.getAmount(), // Assuming quantity is always 1
-                        "unit"
+                        item.getProductId().toString(),
+                        item.getPrice(),
+                        item.getQuantity(),
+                        "unit",
+                        item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))
                         ))
                 .collect(Collectors.toList()));
-        mercadoPagoOrder.setTitle("Product order");
-        mercadoPagoOrder.setTotalAmount(orderSnack.getTotalAmount());
-        mercadoPagoOrder.setCashOut(new MercadoPagoCashOut(orderSnack.getTotalAmount()));
 
         return mercadoPagoOrder;
     }

@@ -11,6 +11,4 @@ import java.util.UUID;
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategoryEntity, UUID> {
 
-    Optional<ProductCategoryEntity> findProductCategory(String cpf);
-
 }

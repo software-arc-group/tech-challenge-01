@@ -26,8 +26,8 @@ public class ProductCategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<ProductCategory> searchCategory(@PathVariable("categoriaId") UUID id) {
-        ProductCategory productCategory = productCategoryUseCase.findProductCategory(id);
+    public ResponseEntity<ProductCategory> searchCategory(@PathVariable("categoryId") UUID categoryId) {
+        ProductCategory productCategory = productCategoryUseCase.findProductCategory(categoryId);
         return ResponseEntity.ok(productCategory);
     }
 

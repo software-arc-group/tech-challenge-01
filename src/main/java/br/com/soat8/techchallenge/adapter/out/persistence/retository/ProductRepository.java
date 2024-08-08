@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
-    Optional<ProductEntity> findById(Integer id);
-    void deleteById(Integer product);
+
+    void deleteById(UUID id);
+
 }

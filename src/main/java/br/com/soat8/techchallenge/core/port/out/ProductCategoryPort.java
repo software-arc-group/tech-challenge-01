@@ -6,8 +6,6 @@ import java.util.UUID;
 
 public interface ProductCategoryPort {
 
-
     ProductCategory findProductCategory(UUID productCategoryId);
-
 
 }

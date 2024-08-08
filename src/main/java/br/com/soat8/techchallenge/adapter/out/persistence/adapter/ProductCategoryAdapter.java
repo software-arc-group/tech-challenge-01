@@ -23,7 +23,6 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
 
     @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {
-
         return productCategoryRepository.findById(productCategoryId).map(this::build).orElse(null);
     }
 

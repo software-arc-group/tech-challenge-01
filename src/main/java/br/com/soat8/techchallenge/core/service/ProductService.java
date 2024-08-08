@@ -16,11 +16,11 @@ public class ProductService implements ProductUseCase {
 
     private final ProductPort productPort;
 
-    private final ProductCategoryPort productCategoryPort;
+    //private final ProductCategoryPort productCategoryPort;
 
-    public ProductService(ProductPort productPort, ProductCategoryPort productCategoryPort) {
+    public ProductService(ProductPort productPort/*, ProductCategoryPort productCategoryPort*/) {
         this.productPort = productPort;
-        this.productCategoryPort = productCategoryPort;
+        //this.productCategoryPort = productCategoryPort;
     }
 
     @Override
@@ -34,14 +34,14 @@ public class ProductService implements ProductUseCase {
     @Override
     public void updateProduct(Product product) {
         invalidCategory(product);
-        notFoundProduct(Integer.valueOf(product.getProductId().toString()));
+        notFoundProduct(product.getProductId());
         productPort.updateProduct(product);
     }
 
     @Override
-    public void removeProduct(Integer product_id) {
-        notFoundProduct(product_id);
-        productPort.removeProduct(product_id);
+    public void removeProduct(UUID productId) {
+        notFoundProduct(productId);
+        productPort.removeProduct(productId);
     }
 
     private void invalidCategory(Product product) {
@@ -65,9 +65,9 @@ public class ProductService implements ProductUseCase {
         }
     }
 
-    private void notFoundProduct(Integer product_id) {
-        if (productPort.findById(product_id)){
-            throw new NotFoundProductException("This product does not exist Id: " + product_id);
+    private void notFoundProduct(UUID productId) {
+        if (productPort.findById(productId)){
+            throw new NotFoundProductException("This product does not exist Id: " + productId);
         }
     }
 

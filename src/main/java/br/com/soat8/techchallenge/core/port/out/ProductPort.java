@@ -5,12 +5,13 @@ import br.com.soat8.techchallenge.domain.Product;
 import br.com.soat8.techchallenge.domain.ProductCategory;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public interface ProductPort {
 
     void saveProduct(Product product);
     void updateProduct(Product product);
-    void removeProduct(Integer product_id);
-    Boolean findById(Integer product_id);
+    void removeProduct(UUID productId);
+    Boolean findById(UUID productId);
 
 }

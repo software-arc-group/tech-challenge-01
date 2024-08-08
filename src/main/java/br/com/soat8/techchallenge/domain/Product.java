@@ -20,4 +20,7 @@ public class Product {
     private ProductCategory category;
     private String description;
 
+
+    //aplicar anotações referente a campos vazios com javax @valid no controller
+
 }

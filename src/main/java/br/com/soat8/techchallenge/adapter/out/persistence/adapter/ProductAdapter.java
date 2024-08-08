@@ -13,6 +13,7 @@ import br.com.soat8.techchallenge.domain.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class ProductAdapter implements ProductPort {
@@ -37,12 +38,12 @@ public class ProductAdapter implements ProductPort {
     }
 
     @Override
-    public void removeProduct(Integer product_id) {
-        remove(product_id);
+    public void removeProduct(UUID productId) {
+        remove(productId);
     }
 
     @Override
-    public Boolean findById(Integer id) {
+    public Boolean findById(UUID id) {
         return productRepository.findById(id).isPresent();
     }
 
@@ -65,7 +66,7 @@ public class ProductAdapter implements ProductPort {
         productRepository.save(productEntity);
     }
 
-    private void remove(Integer product) {
+    private void remove(UUID product) {
         productRepository.deleteById(product);
     }
 

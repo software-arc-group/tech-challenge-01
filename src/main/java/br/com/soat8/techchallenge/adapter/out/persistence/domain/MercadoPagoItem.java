@@ -1,7 +1,6 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

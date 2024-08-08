@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.core.service;
 
+import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
 import br.com.soat8.techchallenge.core.port.in.OrderSnackUseCase;
 import br.com.soat8.techchallenge.core.port.out.MercadoPagoIntegrationPort;
 import br.com.soat8.techchallenge.core.port.out.OrderSnackPort;
@@ -7,20 +8,20 @@ import br.com.soat8.techchallenge.core.port.out.QRCodePort;
 import br.com.soat8.techchallenge.domain.OrderSnack;
 import br.com.soat8.techchallenge.domain.OrderSnackItem;
 import com.google.zxing.WriterException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class OrderSnackService implements OrderSnackUseCase {
 
-    MercadoPagoIntegrationPort mercadoPagoIntegrationPort;
-    QRCodePort qrCodePort;
-    OrderSnackPort orderSnackPort;
+    private final MercadoPagoIntegrationPort mercadoPagoIntegrationPort;
+    private final QRCodePort qrCodePort;
+    private final OrderSnackPort orderSnackPort;
 
-    @Autowired
+
     public OrderSnackService(MercadoPagoIntegrationPort mercadoPagoIntegrationPort,
                              QRCodePort qrCodePort,
                              OrderSnackPort orderSnackPort) {
@@ -55,5 +56,10 @@ public class OrderSnackService implements OrderSnackUseCase {
     public BigDecimal getTotalPrice(OrderSnackItem orderSnackItem) {
         BigDecimal quantityAsBigDecimal = BigDecimal.valueOf(orderSnackItem.getQuantity());
         return orderSnackItem.getPrice().multiply(quantityAsBigDecimal);
+    }
+
+    @Override
+    public List<OrderSnack> listOrderSnack(OrderProgress progress, String cpf) {
+        return orderSnackPort.listOrderSnack(progress, cpf);
     }
 }

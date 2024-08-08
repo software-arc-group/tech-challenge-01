@@ -1,6 +1,7 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Builder
 @Table(name = "product")
 public class ProductEntity implements Serializable {
 

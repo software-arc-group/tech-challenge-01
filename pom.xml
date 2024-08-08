@@ -73,6 +73,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.kuisama.zxing/zxing-spring-boot-starter -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.4.1</version>
+		</dependency>
 		<!-- Springdoc OpenAPI -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -92,6 +104,22 @@
 			<version>2.15.2</version>
 		</dependency>
 
+		<!-- Dependências do Apache HttpComponents -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.core5</groupId>
+			<artifactId>httpcore5</artifactId>
+			<version>5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5-cache</artifactId>
+			<version>5.3.1</version>
+		</dependency>
 
 	</dependencies>
 

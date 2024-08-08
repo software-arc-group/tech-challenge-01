@@ -3,6 +3,7 @@ package br.com.soat8.techchallenge.adapter.out.persistence.entity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "order_snack")
 public class OrderSnackEntity implements Serializable {
 
@@ -46,4 +49,7 @@ public class OrderSnackEntity implements Serializable {
     @JdbcTypeCode(Types.TIMESTAMP)
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(name = "total_price", nullable = false)
+    private BigDecimal totalPrice;
 }

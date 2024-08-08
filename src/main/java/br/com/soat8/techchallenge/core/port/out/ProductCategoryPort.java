@@ -9,6 +9,6 @@ public interface ProductCategoryPort {
 
     ProductCategory findProductCategory(UUID productCategoryId);
 
-    
+   
 
 }

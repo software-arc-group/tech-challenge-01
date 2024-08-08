@@ -11,8 +11,6 @@ import java.util.UUID;
 public interface CustomerRepository extends JpaRepository<CustomerEntity, UUID> {
     Optional<CustomerEntity> findByCpf(String cpf);
 
-    Boolean findByCpf(String cpf);
-
     Optional<CustomerEntity> findByEmailAddress(String emailAddress);
 
 }

@@ -5,19 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product {
+public class ProductImage {
 
-    private UUID productId;
+    private UUID productImageId;
+
+    private Product productId;
+
     private String name;
-    private BigDecimal price;
-    private ProductCategory category;
-    private String description;
 
+    private String bucketUrl;
 }

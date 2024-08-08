@@ -2,7 +2,9 @@ package br.com.soat8.techchallenge.core.service;
 
 import br.com.soat8.techchallenge.core.port.in.ProductCategoryUseCase;
 import br.com.soat8.techchallenge.core.port.out.ProductCategoryPort;
+import br.com.soat8.techchallenge.domain.Customer;
 import br.com.soat8.techchallenge.domain.ProductCategory;
+import br.com.soat8.techchallenge.domain.exception.CpfNotExistsException;
 import br.com.soat8.techchallenge.domain.exception.ProductCategoryNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,15 @@ public class ProductCategoryService implements ProductCategoryUseCase {
 
     @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {
-
         ProductCategory productCategory = productCategoryPort.findProductCategory(productCategoryId);
-        if(Objects.isNull(productCategory)){
-            throw new ProductCategoryNotFoundException("Product Category not found: " + productCategoryId);
-        }
-
+        categoryNotFound(productCategory);
         return productCategory;
     }
+
+    private void categoryNotFound(ProductCategory productCategory) {
+        if(Objects.isNull(productCategory)){
+            throw new ProductCategoryNotFoundException("Product Category not found");
+        }
+    }
+
 }

@@ -8,7 +8,6 @@ import br.com.soat8.techchallenge.core.port.out.QRCodePort;
 import br.com.soat8.techchallenge.domain.OrderSnack;
 import br.com.soat8.techchallenge.domain.OrderSnackItem;
 import com.google.zxing.WriterException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,11 +17,11 @@ import java.util.List;
 @Service
 public class OrderSnackService implements OrderSnackUseCase {
 
-    MercadoPagoIntegrationPort mercadoPagoIntegrationPort;
-    QRCodePort qrCodePort;
-    OrderSnackPort orderSnackPort;
+    private final MercadoPagoIntegrationPort mercadoPagoIntegrationPort;
+    private final QRCodePort qrCodePort;
+    private final OrderSnackPort orderSnackPort;
 
-    @Autowired
+
     public OrderSnackService(MercadoPagoIntegrationPort mercadoPagoIntegrationPort,
                              QRCodePort qrCodePort,
                              OrderSnackPort orderSnackPort) {

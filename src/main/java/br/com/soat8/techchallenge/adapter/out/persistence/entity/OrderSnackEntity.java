@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "order_snack")
 public class OrderSnackEntity implements Serializable {
 

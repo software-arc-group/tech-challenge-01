@@ -1,12 +1,15 @@
 package br.com.soat8.techchallenge.adapter.in.controller;
 
+import br.com.soat8.techchallenge.core.port.in.CustomerUseCase;
 import br.com.soat8.techchallenge.core.port.in.ProductCategoryUseCase;
+import br.com.soat8.techchallenge.domain.Customer;
 import br.com.soat8.techchallenge.domain.ProductCategory;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -14,7 +17,7 @@ import java.util.UUID;
 @RequestMapping(ProductCategoryController.BASE_URL)
 public class ProductCategoryController {
 
-    public static final String BASE_URL = "/lanchonete/categoria";
+    public static final String BASE_URL = "/lanchonete/category";
 
     private final ProductCategoryUseCase productCategoryUseCase;
 
@@ -22,10 +25,16 @@ public class ProductCategoryController {
         this.productCategoryUseCase = productCategoryUseCase;
     }
 
-    @GetMapping("/{categoriaId}")
-    public ResponseEntity<ProductCategory> cadastrarCliente(@PathVariable("categoriaId") UUID categoriaId) {
-        ProductCategory productCategory = productCategoryUseCase.findProductCategory(categoriaId);
+    @GetMapping
+    public ResponseEntity<ProductCategory> searchCategory(@PathVariable("categoriaId") UUID id) {
+        ProductCategory productCategory = productCategoryUseCase.findProductCategory(id);
         return ResponseEntity.ok(productCategory);
     }
+
+    /*@PostMapping
+    public ResponseEntity<Void> createCategory(@Valid @RequestBody ProductCategory productCategory) {
+        productCategoryUseCase.saveCategory(productCategory);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }*/
 
 }

@@ -25,14 +25,15 @@ public class ProductService implements ProductUseCase {
 
     @Override
     public void saveProduct(Product product) {
-        invalidCategory(product.getCategory().getProductCategoryId());
+        invalidCategory(product);
+        //invalidCategory(product.getCategory().getProductCategoryId());
         incompleteFields(product);
         productPort.saveProduct(product);
     }
 
     @Override
     public void updateProduct(Product product) {
-        invalidCategory(product.getCategory().getProductCategoryId());
+        invalidCategory(product);
         notFoundProduct(Integer.valueOf(product.getProductId().toString()));
         productPort.updateProduct(product);
     }
@@ -43,10 +44,10 @@ public class ProductService implements ProductUseCase {
         productPort.removeProduct(product_id);
     }
 
-    private void invalidCategory(UUID productCategoryId) {
-        if (productCategoryPort.findProductCategory(productCategoryId)){
+    private void invalidCategory(Product product) {
+        /*if (productCategoryPort.findProductCategory(product.getCategory().getProductCategoryId())){
             throw new InvalidCategoryException("Invalid Category: " + productCategoryId);
-        }
+        }*/
     }
 
     private void incompleteFields(Product product) {

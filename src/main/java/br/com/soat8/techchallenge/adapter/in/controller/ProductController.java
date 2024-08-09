@@ -2,6 +2,7 @@ package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.ProductUseCase;
 import br.com.soat8.techchallenge.domain.Product;
+import br.com.soat8.techchallenge.domain.ProductCategory;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +36,10 @@ public class ProductController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Product> removeProduct(@Valid @RequestBody UUID productId) {
+    public ResponseEntity<Product> removeProduct(@PathVariable("productId") UUID productId) {
         productUseCase.removeProduct(productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 }

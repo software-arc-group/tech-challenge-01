@@ -1,18 +1,11 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.adapter;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductCategoryEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;
-import br.com.soat8.techchallenge.adapter.out.persistence.retository.CustomerRepository;
-import br.com.soat8.techchallenge.adapter.out.persistence.retository.ProductCategoryRepository;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.ProductRepository;
-import br.com.soat8.techchallenge.core.port.out.CustomerPort;
 import br.com.soat8.techchallenge.core.port.out.ProductPort;
-import br.com.soat8.techchallenge.domain.Customer;
 import br.com.soat8.techchallenge.domain.Product;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -20,11 +13,8 @@ public class ProductAdapter implements ProductPort {
 
     private final ProductRepository productRepository;
 
-    //private final ProductCategoryRepository productCategoryRepository;
-
-    public ProductAdapter(ProductRepository productRepository/*, ProductCategoryRepository productCategoryRepository*/) {
+    public ProductAdapter(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        //this.productCategoryRepository = productCategoryRepository;
     }
 
     @Override

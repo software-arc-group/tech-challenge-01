@@ -2,6 +2,8 @@ package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.ProductCategoryUseCase;
 import br.com.soat8.techchallenge.domain.ProductCategory;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +27,10 @@ public class ProductCategoryController {
         return ResponseEntity.ok(productCategory);
     }
 
-    /*@PostMapping
+    @PostMapping
     public ResponseEntity<Void> createCategory(@Valid @RequestBody ProductCategory productCategory) {
-        productCategoryUseCase.saveCategory(productCategory);
+        productCategoryUseCase.saveProductCategory(productCategory);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }*/
+    }
 
 }

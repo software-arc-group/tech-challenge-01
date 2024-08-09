@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 public class Product {
 
-    @JsonProperty("product_id")
+    @JsonProperty("productId")
     private UUID productId;
 
     private String name;

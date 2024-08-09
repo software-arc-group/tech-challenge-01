@@ -22,10 +22,26 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 - Uso de DTOs para a API
 - Geração automática do Swagger
 
-Acessar a interface do Swagger
+
+
+Criando o banco via linha de comando:
+
+- mysql -u root -p 
+- create database lanchonete;
+
+Verifique se foi criado corretamento com:
+
+- show databases;
+
+Dê run no projeto.
+
+Agora acesse a interface do Swagger
 Após configurar o Swagger, você pode acessar a interface do Swagger UI na seguinte URL:
 
 Para consumo das API acessar o [Swagger](http://localhost:8080/swagger-ui.html).
+
+
+PAINEL CLIENTE:
 
 ```
 Para criação do cliente:
@@ -41,7 +57,7 @@ http POST :8080/lanchonete/customer
 ```
 
 ```
-Para criação do cliente:
+Para buscar o cliente:
 
 http GET :8080/lanchonete/customer
 
@@ -53,5 +69,53 @@ http GET :8080/lanchonete/customer
 Para busca de produtos por categoria:
 
 http GET :8080/lanchonete/categoria/{categoriaID}
+
+```
+
+```
+Para enviar pedido:
+
+http POST :8080/order
+
+{
+  "orderSnackId": "string",
+  "progress": "string",
+  "createdAt": "2024-08-09T00:52:30.887Z",
+  "customerId": "string",
+  "customerName": "string",
+  "cpf": "string",
+  "items": [
+    {
+      "orderSnackItemId": "string",
+      "amount": 0,
+      "productName": "string",
+      "price": 0,
+      "quantity": 1,
+      "product_id": "string"
+    }
+  ]
+}
+
+```
+
+
+-----------------------------------------------------------
+
+PAINEL COZINHA
+ 
+```
+Para buscar os pedidos
+
+http GET :8080/lanchonete/order
+
+(vai listar todos)
+
+para buscar com filtro:
+
+progress (string) Available values : RECEIVED, IN_PREPARATION, READY, FINISHED
+
+ou com o cpf de um cliente:
+
+cpf (string)
 
 ```

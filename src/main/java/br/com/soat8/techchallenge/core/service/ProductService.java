@@ -9,6 +9,7 @@ import br.com.soat8.techchallenge.domain.exception.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -16,17 +17,16 @@ public class ProductService implements ProductUseCase {
 
     private final ProductPort productPort;
 
-    //private final ProductCategoryPort productCategoryPort;
+    private final ProductCategoryPort productCategoryPort;
 
-    public ProductService(ProductPort productPort/*, ProductCategoryPort productCategoryPort*/) {
+    public ProductService(ProductPort productPort, ProductCategoryPort productCategoryPort) {
         this.productPort = productPort;
-        //this.productCategoryPort = productCategoryPort;
+        this.productCategoryPort = productCategoryPort;
     }
 
     @Override
     public void saveProduct(Product product) {
         invalidCategory(product);
-        //invalidCategory(product.getCategory().getProductCategoryId());
         incompleteFields(product);
         productPort.saveProduct(product);
     }
@@ -45,9 +45,9 @@ public class ProductService implements ProductUseCase {
     }
 
     private void invalidCategory(Product product) {
-        /*if (productCategoryPort.findProductCategory(product.getCategory().getProductCategoryId())){
-            throw new InvalidCategoryException("Invalid Category: " + productCategoryId);
-        }*/
+        if (Objects.isNull(productCategoryPort.findProductCategory(product.getCategory().getProductCategoryId()))){
+            throw new InvalidCategoryException("Invalid Category: " + product.getCategory().getProductCategoryId());
+        }
     }
 
     private void incompleteFields(Product product) {

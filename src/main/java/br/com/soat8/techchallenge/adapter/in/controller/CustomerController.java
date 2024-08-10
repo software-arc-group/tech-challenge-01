@@ -22,14 +22,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> cadastrarCliente(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Void> createCustomer(@Valid @RequestBody Customer customer) {
         customerUseCase.saveCustomer(customer);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "CPF Invalido") String cpf) {
+    public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "CPF invalid") String cpf) {
 
         Customer result = customerUseCase.searchCustomerCpf(cpf);
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 @RequestMapping(ProductCategoryController.BASE_URL)
 public class ProductCategoryController {
 
-    public static final String BASE_URL = "/lanchonete/categoria";
+    public static final String BASE_URL = "/lanchonete/category";
 
     private final ProductCategoryUseCase productCategoryUseCase;
 
@@ -22,10 +22,11 @@ public class ProductCategoryController {
         this.productCategoryUseCase = productCategoryUseCase;
     }
 
-    @GetMapping("/{categoriaId}")
-    public ResponseEntity<ProductCategory> cadastrarCliente(@PathVariable("categoriaId") UUID categoriaId) {
-        ProductCategory productCategory = productCategoryUseCase.findProductCategory(categoriaId);
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<ProductCategory> searchCategory(@PathVariable("categoryId") UUID categoryId) {
+        ProductCategory productCategory = productCategoryUseCase.findProductCategory(categoryId);
         return ResponseEntity.ok(productCategory);
     }
+
 
 }

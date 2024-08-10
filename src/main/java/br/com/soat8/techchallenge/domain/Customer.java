@@ -22,4 +22,6 @@ public class Customer {
 
     @Pattern(regexp = "\\d{11}", message = "CPF should be 11 digits")
     private String cpf;
+
+
 }

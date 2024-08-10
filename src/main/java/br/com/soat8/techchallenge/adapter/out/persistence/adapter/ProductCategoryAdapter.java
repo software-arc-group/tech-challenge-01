@@ -23,14 +23,11 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
 
     @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {
-
-        return productCategoryRepository.findById(productCategoryId)
-                .map(this::build)
-                .orElse(null);
+        return productCategoryRepository.findById(productCategoryId).map(this::build).orElse(null);
     }
 
     private ProductCategory build(ProductCategoryEntity entity) {
-        if(entity == null){
+        if (entity == null) {
             return null;
         }
         return ProductCategory.builder()
@@ -45,7 +42,7 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
     }
 
     private Product buildProduct(ProductEntity entity) {
-        if(entity == null){
+        if (entity == null) {
             return null;
         }
         return Product.builder()
@@ -55,6 +52,5 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
                 .price(entity.getPrice())
                 .build();
     }
-
 
 }

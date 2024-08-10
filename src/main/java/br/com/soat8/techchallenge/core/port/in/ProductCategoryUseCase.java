@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface ProductCategoryUseCase {
     ProductCategory findProductCategory(UUID productCategoryId);
+
 }

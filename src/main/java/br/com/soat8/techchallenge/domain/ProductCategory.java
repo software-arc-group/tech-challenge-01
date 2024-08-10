@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Builder
 public class ProductCategory {
 
+    @JsonProperty("productCategoryId")
     private UUID productCategoryId;
 
     private String description;

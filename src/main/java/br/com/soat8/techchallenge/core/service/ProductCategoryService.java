@@ -20,12 +20,15 @@ public class ProductCategoryService implements ProductCategoryUseCase {
 
     @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {
-
         ProductCategory productCategory = productCategoryPort.findProductCategory(productCategoryId);
-        if(Objects.isNull(productCategory)){
-            throw new ProductCategoryNotFoundException("Product Category not found: " + productCategoryId);
-        }
-
+        categoryNotFound(productCategory);
         return productCategory;
     }
+
+    private void categoryNotFound(ProductCategory productCategory) {
+        if(Objects.isNull(productCategory)){
+            throw new ProductCategoryNotFoundException("Product Category not found");
+        }
+    }
+
 }

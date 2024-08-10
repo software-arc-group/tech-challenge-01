@@ -1,6 +1,8 @@
 package br.com.soat8.techchallenge.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.soat8.techchallenge.domain.group.OnUpdate;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,21 +16,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Product {
 
-    @JsonProperty("productId")
+    @NotNull(groups = OnUpdate.class, message = "CategoryId is required for update")
     private UUID productId;
+
+    private UUID categoryId;
 
     @NotNull(message = "name product required")
     private String name;
 
     private BigDecimal price;
 
-    private ProductCategory category;
-
     private String description;
-
-    //aplicar anotações referente a campos vazios com javax @valid no controller
 
 
 }

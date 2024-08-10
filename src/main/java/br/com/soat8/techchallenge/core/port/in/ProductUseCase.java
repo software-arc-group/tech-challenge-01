@@ -7,7 +7,6 @@ import java.util.UUID;
 public interface ProductUseCase {
 
     void saveProduct(Product product);
-    void updateProduct(Product product);
     void removeProduct(UUID productId);
 
 }

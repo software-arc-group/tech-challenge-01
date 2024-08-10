@@ -2,10 +2,11 @@ package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.ProductUseCase;
 import br.com.soat8.techchallenge.domain.Product;
-import br.com.soat8.techchallenge.domain.ProductCategory;
-import jakarta.validation.Valid;
+import br.com.soat8.techchallenge.domain.group.OnCreate;
+import br.com.soat8.techchallenge.domain.group.OnUpdate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -23,15 +24,15 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createProduct(@Valid @RequestBody Product product) {
+    public ResponseEntity<Void> createProduct(@Validated(OnCreate.class) @RequestBody Product product) {
         productUseCase.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
     @PutMapping
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) {
-        productUseCase.updateProduct(product);
+    public ResponseEntity<Product> updateProduct(@Validated(OnUpdate.class) @RequestBody Product product) {
+        productUseCase.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

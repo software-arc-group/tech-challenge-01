@@ -1,14 +1,14 @@
 package br.com.soat8.techchallenge.core.service;
 
 import br.com.soat8.techchallenge.core.port.in.ProductUseCase;
-import br.com.soat8.techchallenge.core.port.out.ProductPort;
 import br.com.soat8.techchallenge.core.port.out.ProductCategoryPort;
+import br.com.soat8.techchallenge.core.port.out.ProductPort;
 import br.com.soat8.techchallenge.domain.Product;
 import br.com.soat8.techchallenge.domain.ProductCategory;
-import br.com.soat8.techchallenge.domain.exception.*;
+import br.com.soat8.techchallenge.domain.exception.InvalidCategoryException;
+import br.com.soat8.techchallenge.domain.exception.NotFoundProductException;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,16 +26,16 @@ public class ProductService implements ProductUseCase {
 
     @Override
     public void saveProduct(Product product) {
-        invalidCategory(product);
-        incompleteFields(product);
-        productPort.saveProduct(product);
+        ProductCategory productCategory = getProductCategory(product);
+        productPort.saveProduct(product, productCategory);
     }
 
-    @Override
-    public void updateProduct(Product product) {
-        invalidCategory(product);
-        notFoundProduct(product.getProductId());
-        productPort.updateProduct(product);
+    private ProductCategory getProductCategory(Product product) {
+        ProductCategory productCategory = productCategoryPort.findProductCategory(product.getCategoryId());
+        if (Objects.isNull(productCategory)) {
+            throw new InvalidCategoryException("Invalid Category: " + product.getCategoryId());
+        }
+        return productCategory;
     }
 
     @Override
@@ -44,29 +44,9 @@ public class ProductService implements ProductUseCase {
         productPort.removeProduct(productId);
     }
 
-    private void invalidCategory(Product product) {
-        if (Objects.isNull(productCategoryPort.findProductCategory(product.getCategory().getProductCategoryId()))){
-            throw new InvalidCategoryException("Invalid Category: " + product.getCategory().getProductCategoryId());
-        }
-    }
-
-    private void incompleteFields(Product product) {
-        if (product.getName().isEmpty()){
-            throw new IncompleteFieldsException("Incomplete fields 'Name' ");
-        }
-        if (product.getPrice()==null){
-            throw new IncompleteFieldsException("Incomplete fields 'Price' ");
-        }
-        if (product.getCategory()==null){
-            throw new IncompleteFieldsException("Incomplete fields 'Category' ");
-        }
-        if (product.getDescription().isEmpty()){
-            throw new IncompleteFieldsException("Incomplete fields 'Description' ");
-        }
-    }
 
     private void notFoundProduct(UUID productId) {
-        if (!productPort.findById(productId)){
+        if (!productPort.findById(productId)) {
             throw new NotFoundProductException("This product does not exist Id: " + productId);
         }
     }

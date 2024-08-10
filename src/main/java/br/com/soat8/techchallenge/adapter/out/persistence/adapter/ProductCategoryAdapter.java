@@ -1,16 +1,13 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.adapter;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductCategoryEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.ProductCategoryRepository;
 import br.com.soat8.techchallenge.core.port.out.ProductCategoryPort;
-import br.com.soat8.techchallenge.domain.Customer;
 import br.com.soat8.techchallenge.domain.Product;
 import br.com.soat8.techchallenge.domain.ProductCategory;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,17 +22,12 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
     }
 
     @Override
-    public void saveProductCategory(ProductCategory productCategory) {
-        save(productCategory);
-    }
-
-    @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {
         return productCategoryRepository.findById(productCategoryId).map(this::build).orElse(null);
     }
 
     private ProductCategory build(ProductCategoryEntity entity) {
-        if(entity == null){
+        if (entity == null) {
             return null;
         }
         return ProductCategory.builder()
@@ -50,7 +42,7 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
     }
 
     private Product buildProduct(ProductEntity entity) {
-        if(entity == null){
+        if (entity == null) {
             return null;
         }
         return Product.builder()
@@ -59,29 +51,6 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
                 .description(entity.getDescription())
                 .price(entity.getPrice())
                 .build();
-    }
-
-    private void save(ProductCategory productCategory) {
-
-        ProductCategoryEntity productCategoryEntity = new ProductCategoryEntity();
-        productCategoryEntity.setDescription(productCategory.getDescription());
-
-        List<ProductEntity> productEntities = new ArrayList<>();
-
-        for (Product product : productCategory.getProducts()) {
-            ProductEntity productEntity = new ProductEntity();
-            productEntity.setName(product.getName());
-            productEntity.setPrice(product.getPrice());
-            productEntity.setDescription(product.getDescription());
-
-            productEntity.setCategory(productCategoryEntity);
-
-            productEntities.add(productEntity);
-        }
-
-        productCategoryEntity.setProducts(productEntities);
-
-        productCategoryRepository.save(productCategoryEntity);
     }
 
 }

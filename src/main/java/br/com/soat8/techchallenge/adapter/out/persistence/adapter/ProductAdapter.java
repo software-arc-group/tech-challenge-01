@@ -5,7 +5,11 @@ import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.ProductRepository;
 import br.com.soat8.techchallenge.core.port.out.ProductPort;
 import br.com.soat8.techchallenge.domain.Product;
+import br.com.soat8.techchallenge.domain.ProductCategory;
+import br.com.soat8.techchallenge.domain.exception.NotFoundProductException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.UUID;
 
 @Component
@@ -18,18 +22,28 @@ public class ProductAdapter implements ProductPort {
     }
 
     @Override
-    public void saveProduct(Product product) {
-        saveOrUpdate(product);
+    public void saveProduct(Product product, ProductCategory productCategory) {
+        saveOrUpdate(product, productCategory);
     }
 
-    @Override
-    public void updateProduct(Product product) {
-        saveOrUpdate(product);
-    }
-
+    @Transactional
     @Override
     public void removeProduct(UUID productId) {
-        remove(productId);
+        try {
+            productRepository.findById(productId)
+                    .ifPresentOrElse(
+                            product -> {
+                                // Remove todas as dependências antes de excluir o produto
+                                product.getOrderItems().clear();
+                                productRepository.delete(product);
+                            },
+                            () -> {
+                                throw new NotFoundProductException("Product not found with ID: " + productId);
+                            }
+                    );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -37,27 +51,21 @@ public class ProductAdapter implements ProductPort {
         return productRepository.findById(id).isPresent();
     }
 
-    private void saveOrUpdate(Product product) {
+    private void saveOrUpdate(Product product, ProductCategory productCategory) {
         ProductEntity productEntity = new ProductEntity();
         ProductCategoryEntity productCategoryEntity = new ProductCategoryEntity();
 
-        productCategoryEntity.setProductCategoryId(product.getCategory().getProductCategoryId());
-        productCategoryEntity.setDescription(product.getCategory().getDescription());
-
+        productCategoryEntity.setProductCategoryId(productCategory.getProductCategoryId());
         productEntity.setName(product.getName());
         productEntity.setPrice(product.getPrice());
         productEntity.setCategory(productCategoryEntity);
         productEntity.setDescription(product.getDescription());
 
-        if(product.getProductId()!=null){
+        if (product.getProductId() != null) {
             productEntity.setProductId(product.getProductId());
         }
 
         productRepository.save(productEntity);
-    }
-
-    private void remove(UUID product) {
-        productRepository.deleteById(product);
     }
 
 }

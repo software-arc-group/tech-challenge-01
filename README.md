@@ -4,6 +4,11 @@
 
 Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https://on.fiap.com.br/mod/conteudoshtml/view.php?id=407435&c=11255&sesskey=0W0NdVRNSB) faz parte da Fase 1 - Welcome to Software Architecture da pós graduação em Software Architecture da FIAP.
 
+## Colaboradores
+
+- Welington Carlos Alves de Almeida Filho - wcfilho98@gmail.com - RM357115
+- Irlan Carlo do Amaral Gomes - irlan.carlo@gmail.com - RM357811
+
 ## Tecnologias
  
 - [Spring Boot](https://spring.io/projects/spring-boot)
@@ -38,7 +43,7 @@ Dê run no projeto.
 Agora acesse a interface do Swagger
 Após configurar o Swagger, você pode acessar a interface do Swagger UI na seguinte URL:
 
-Para consumo das API acessar o [Swagger](http://localhost:8081/swagger-ui.html).
+Para consumo das API acessar o [Swagger](http://localhost:8080/swagger-ui.html).
 
 
 PAINEL CLIENTE:

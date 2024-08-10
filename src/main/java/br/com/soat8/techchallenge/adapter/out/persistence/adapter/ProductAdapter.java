@@ -29,21 +29,17 @@ public class ProductAdapter implements ProductPort {
     @Transactional
     @Override
     public void removeProduct(UUID productId) {
-        try {
-            productRepository.findById(productId)
-                    .ifPresentOrElse(
-                            product -> {
-                                // Remove todas as dependências antes de excluir o produto
-                                product.getOrderItems().clear();
-                                productRepository.delete(product);
-                            },
-                            () -> {
-                                throw new NotFoundProductException("Product not found with ID: " + productId);
-                            }
-                    );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        productRepository.findById(productId)
+                .ifPresentOrElse(
+                        product -> {
+                            // Remove todas as dependências antes de excluir o produto
+                            product.getOrderItems().clear();
+                            productRepository.delete(product);
+                        },
+                        () -> {
+                            throw new NotFoundProductException("Product not found with ID: " + productId);
+                        }
+                );
     }
 
     @Override

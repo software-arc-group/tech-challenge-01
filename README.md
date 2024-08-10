@@ -38,7 +38,7 @@ Dê run no projeto.
 Agora acesse a interface do Swagger
 Após configurar o Swagger, você pode acessar a interface do Swagger UI na seguinte URL:
 
-Para consumo das API acessar o [Swagger](http://localhost:8080/swagger-ui.html).
+Para consumo das API acessar o [Swagger](http://localhost:8081/swagger-ui.html).
 
 
 PAINEL CLIENTE:
@@ -46,7 +46,7 @@ PAINEL CLIENTE:
 ```
 Para criação do cliente:
 
-http POST :8080/lanchonete/customer
+http POST :8081/lanchonete/customer
 
 {
   "name": "string",
@@ -59,7 +59,7 @@ http POST :8080/lanchonete/customer
 ```
 Para buscar o cliente:
 
-http GET :8080/lanchonete/customer
+http GET :8081/lanchonete/customer
 
   "cpf": "29295965612",
 
@@ -68,14 +68,14 @@ http GET :8080/lanchonete/customer
 ```
 Para busca de produtos por categoria:
 
-http GET :8080/lanchonete/categoria/{categoriaID}
+http GET :8081/lanchonete/categoria/{categoriaID}
 
 ```
 
 ```
 Para enviar pedido:
 
-http POST :8080/order
+http POST :8081/order
 
 {
   "orderSnackId": "string",
@@ -106,7 +106,7 @@ PAINEL COZINHA
 ```
 Para buscar os pedidos
 
-http GET :8080/lanchonete/order
+http GET :8081/lanchonete/order
 
 (vai listar todos)
 

@@ -66,7 +66,7 @@ public class ProductService implements ProductUseCase {
     }
 
     private void notFoundProduct(UUID productId) {
-        if (productPort.findById(productId)){
+        if (!productPort.findById(productId)){
             throw new NotFoundProductException("This product does not exist Id: " + productId);
         }
     }

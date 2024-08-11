@@ -78,7 +78,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Parâmetro: `cpf`
 - Descricação: Busca um cliente por cpf
 - Response Body:
-```
+```json
 {
   "id": "UUID do cliente",
   "name": "string",
@@ -94,7 +94,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Parâmetro: `categoryId`
 - Descricação: Busca os produtos por uma categoria
 - Response Body:
-```
+```json
 {
   "description": "string",
   "products": [
@@ -118,7 +118,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Descricação: Cria um novo produto
 - Request Body:
 
-```
+```json
 {
   "category_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "name": "string",
@@ -133,7 +133,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Descricação: Altera um produto
 - Request Body:
 
-```
+```json
 {
   "product_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "category_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -157,7 +157,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Endpoint: `/lanchonete/order`
 - Descricação: Cria novo pedido
 - Request Body:
-```
+```json
 {
   "orderSnackId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "progress": "string",
@@ -185,7 +185,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Parâmetro: Valores opcionais `progress` e `cpf`
 - Descricação: Lista todos os pedidos
 - Response Body:
-```
+```json
 [
   {
     "orderSnackId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",

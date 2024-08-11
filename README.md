@@ -9,7 +9,7 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 - Irlan Carlo do Amaral Gomes - irlan.carlo@gmail.com - RM357811
 - Welington Carlos Alves de Almeida Filho - wcfilho98@gmail.com - RM357115
 - Ludionei da Penha dos Reis - ludioneireis@gmail.com - RM357306
-
+- Francisco Washington de Almeida Oliveira - franciscowashington59@gmail.com - RM357075
 
 ## Tecnologias
 

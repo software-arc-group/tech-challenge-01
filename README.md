@@ -64,7 +64,7 @@ A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/s
 - Descricação: Cria um cliente novo
 - Request Body:
 
-```
+```json
 {
   "name": "string",
   "cpf": "11111111111",

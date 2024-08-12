@@ -10,7 +10,7 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 - Welington Carlos Alves de Almeida Filho - wcfilho98@gmail.com - RM357115
 - Ludionei da Penha dos Reis - ludioneireis@gmail.com - RM357306
 - Francisco Washington de Almeida Oliveira - franciscowashington59@gmail.com - RM357075
-- Charles Aparecido da Paixão de Jesus Campagnaro - charles.campag@gmail.com - RM357075
+- Charles Aparecido da Paixão de Jesus Campagnaro - charles.campag@gmail.com - RM357029
 
 ## Tecnologias
 

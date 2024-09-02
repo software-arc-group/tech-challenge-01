@@ -1,9 +1,9 @@
 package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.ProductUseCase;
-import br.com.soat8.techchallenge.domain.Product;
-import br.com.soat8.techchallenge.domain.group.OnCreate;
-import br.com.soat8.techchallenge.domain.group.OnUpdate;
+import br.com.soat8.techchallenge.entities.Product;
+import br.com.soat8.techchallenge.entities.group.OnCreate;
+import br.com.soat8.techchallenge.entities.group.OnUpdate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

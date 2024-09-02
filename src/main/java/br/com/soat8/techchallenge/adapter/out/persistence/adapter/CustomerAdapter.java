@@ -2,24 +2,28 @@ package br.com.soat8.techchallenge.adapter.out.persistence.adapter;
 
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.CustomerRepository;
-import br.com.soat8.techchallenge.core.port.out.CustomerPort;
-import br.com.soat8.techchallenge.domain.Customer;
+import br.com.soat8.techchallenge.application.gateway.CustomerGateway;
+import br.com.soat8.techchallenge.core.service.mapper.CustomerMapper;
+import br.com.soat8.techchallenge.entities.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class CustomerAdapter implements CustomerPort {
+public class CustomerAdapter implements CustomerGateway {
 
     private final CustomerRepository customerRepository;
+    private final CustomerMapper mapper;
 
-    public CustomerAdapter(CustomerRepository customerRepository) {
+
+    public CustomerAdapter(CustomerRepository customerRepository, CustomerMapper mapper) {
         this.customerRepository = customerRepository;
+        this.mapper = mapper;
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
-        save(customer);
+    public Customer saveCustomer(Customer customer) {
+        return save(customer);
     }
 
     @Override
@@ -46,12 +50,12 @@ public class CustomerAdapter implements CustomerPort {
         return customerRepository.findByEmailAddress(emailAddress).isPresent();
     }
 
-    private void save(Customer customer) {
+    private Customer save(Customer customer) {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setName(customer.getName());
         customerEntity.setEmailAddress(customer.getEmailAddress());
         customerEntity.setCpf(customer.getCpf());
-        customerRepository.save(customerEntity);
+        return mapper.toCustomer(customerRepository.save(customerEntity));
     }
 
 }

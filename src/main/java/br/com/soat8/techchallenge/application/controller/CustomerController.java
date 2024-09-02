@@ -1,7 +1,8 @@
-package br.com.soat8.techchallenge.adapter.in.controller;
+package br.com.soat8.techchallenge.application.controller;
 
+import br.com.soat8.techchallenge.application.controller.request.CustomerRequest;
 import br.com.soat8.techchallenge.core.port.in.CustomerUseCase;
-import br.com.soat8.techchallenge.domain.Customer;
+import br.com.soat8.techchallenge.entities.Customer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -22,10 +23,10 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Void> createCustomer(@Valid @RequestBody CustomerRequest customer) {
         customerUseCase.saveCustomer(customer);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return
     }
 
     @GetMapping

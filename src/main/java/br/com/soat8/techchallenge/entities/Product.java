@@ -1,6 +1,6 @@
-package br.com.soat8.techchallenge.domain;
+package br.com.soat8.techchallenge.entities;
 
-import br.com.soat8.techchallenge.domain.group.OnUpdate;
+import br.com.soat8.techchallenge.entities.group.OnUpdate;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotNull;

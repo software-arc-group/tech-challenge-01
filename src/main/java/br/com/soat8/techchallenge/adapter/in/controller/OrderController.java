@@ -1,7 +1,7 @@
 package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.OrderSnackUseCase;
-import br.com.soat8.techchallenge.domain.OrderSnack;
+import br.com.soat8.techchallenge.entities.OrderSnack;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

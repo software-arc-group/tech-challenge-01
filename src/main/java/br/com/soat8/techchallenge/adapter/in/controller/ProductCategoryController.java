@@ -1,7 +1,7 @@
 package br.com.soat8.techchallenge.adapter.in.controller;
 
 import br.com.soat8.techchallenge.core.port.in.ProductCategoryUseCase;
-import br.com.soat8.techchallenge.domain.ProductCategory;
+import br.com.soat8.techchallenge.entities.ProductCategory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

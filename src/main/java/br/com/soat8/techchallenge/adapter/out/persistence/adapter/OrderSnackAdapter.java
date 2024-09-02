@@ -8,8 +8,8 @@ import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProg
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.OrderSnackRepository;
 import br.com.soat8.techchallenge.adapter.out.persistence.specification.OrderSnackSpecification;
 import br.com.soat8.techchallenge.core.port.out.OrderSnackPort;
-import br.com.soat8.techchallenge.domain.OrderSnack;
-import br.com.soat8.techchallenge.domain.OrderSnackItem;
+import br.com.soat8.techchallenge.entities.OrderSnack;
+import br.com.soat8.techchallenge.entities.OrderSnackItem;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

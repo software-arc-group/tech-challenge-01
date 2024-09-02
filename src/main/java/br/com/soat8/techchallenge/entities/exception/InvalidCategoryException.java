@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain.exception;
+package br.com.soat8.techchallenge.entities.exception;
 
 public class InvalidCategoryException extends RuntimeException {
     public InvalidCategoryException(String message) {

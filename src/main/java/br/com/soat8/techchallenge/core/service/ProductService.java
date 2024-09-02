@@ -3,10 +3,10 @@ package br.com.soat8.techchallenge.core.service;
 import br.com.soat8.techchallenge.core.port.in.ProductUseCase;
 import br.com.soat8.techchallenge.core.port.out.ProductCategoryPort;
 import br.com.soat8.techchallenge.core.port.out.ProductPort;
-import br.com.soat8.techchallenge.domain.Product;
-import br.com.soat8.techchallenge.domain.ProductCategory;
-import br.com.soat8.techchallenge.domain.exception.InvalidCategoryException;
-import br.com.soat8.techchallenge.domain.exception.NotFoundProductException;
+import br.com.soat8.techchallenge.entities.Product;
+import br.com.soat8.techchallenge.entities.ProductCategory;
+import br.com.soat8.techchallenge.entities.exception.InvalidCategoryException;
+import br.com.soat8.techchallenge.entities.exception.NotFoundProductException;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

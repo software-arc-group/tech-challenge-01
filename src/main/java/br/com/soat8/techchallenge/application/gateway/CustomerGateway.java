@@ -1,8 +1,8 @@
-package br.com.soat8.techchallenge.core.port.out;
+package br.com.soat8.techchallenge.application.gateway;
 
-import br.com.soat8.techchallenge.domain.Customer;
+import br.com.soat8.techchallenge.entities.Customer;
 
-public interface CustomerPort {
+public interface CustomerGateway {
     void saveCustomer(Customer customer);
 
     Customer searchCustomerCpf(String cpf);

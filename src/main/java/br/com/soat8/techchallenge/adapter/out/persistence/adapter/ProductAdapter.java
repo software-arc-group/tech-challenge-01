@@ -4,9 +4,9 @@ import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductCategory
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.ProductRepository;
 import br.com.soat8.techchallenge.core.port.out.ProductPort;
-import br.com.soat8.techchallenge.domain.Product;
-import br.com.soat8.techchallenge.domain.ProductCategory;
-import br.com.soat8.techchallenge.domain.exception.NotFoundProductException;
+import br.com.soat8.techchallenge.entities.Product;
+import br.com.soat8.techchallenge.entities.ProductCategory;
+import br.com.soat8.techchallenge.entities.exception.NotFoundProductException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

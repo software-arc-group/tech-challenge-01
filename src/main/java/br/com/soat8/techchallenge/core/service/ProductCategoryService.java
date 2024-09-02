@@ -2,8 +2,8 @@ package br.com.soat8.techchallenge.core.service;
 
 import br.com.soat8.techchallenge.core.port.in.ProductCategoryUseCase;
 import br.com.soat8.techchallenge.core.port.out.ProductCategoryPort;
-import br.com.soat8.techchallenge.domain.ProductCategory;
-import br.com.soat8.techchallenge.domain.exception.ProductCategoryNotFoundException;
+import br.com.soat8.techchallenge.entities.ProductCategory;
+import br.com.soat8.techchallenge.entities.exception.ProductCategoryNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

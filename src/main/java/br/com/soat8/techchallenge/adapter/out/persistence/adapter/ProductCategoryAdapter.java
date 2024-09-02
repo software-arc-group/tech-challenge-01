@@ -4,8 +4,8 @@ import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductCategory
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.ProductCategoryRepository;
 import br.com.soat8.techchallenge.core.port.out.ProductCategoryPort;
-import br.com.soat8.techchallenge.domain.Product;
-import br.com.soat8.techchallenge.domain.ProductCategory;
+import br.com.soat8.techchallenge.entities.Product;
+import br.com.soat8.techchallenge.entities.ProductCategory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

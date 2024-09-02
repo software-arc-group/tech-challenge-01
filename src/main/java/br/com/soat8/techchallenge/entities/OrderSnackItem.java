@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain;
+package br.com.soat8.techchallenge.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;

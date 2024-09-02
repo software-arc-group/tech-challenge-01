@@ -1,6 +1,6 @@
 package br.com.soat8.techchallenge.core.port.out;
 
-import br.com.soat8.techchallenge.domain.ProductCategory;
+import br.com.soat8.techchallenge.entities.ProductCategory;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain;
+package br.com.soat8.techchallenge.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

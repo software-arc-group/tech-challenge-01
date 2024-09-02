@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain.exception;
+package br.com.soat8.techchallenge.entities.exception;
 
 public class IncompleteFieldsException extends RuntimeException {
     public IncompleteFieldsException(String message) {

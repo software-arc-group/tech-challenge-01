@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core_old.port.out;
+package br.com.soat8.techchallenge.port.out;
 
 import com.google.zxing.WriterException;
 

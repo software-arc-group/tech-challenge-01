@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain_old;
+package br.com.soat8.techchallenge;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

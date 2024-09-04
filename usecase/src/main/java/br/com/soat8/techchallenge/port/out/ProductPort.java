@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core_old.port.out;
+package br.com.soat8.techchallenge.port.out;
 
 import br.com.soat8.techchallenge.domain_old.Product;
 import br.com.soat8.techchallenge.domain_old.ProductCategory;

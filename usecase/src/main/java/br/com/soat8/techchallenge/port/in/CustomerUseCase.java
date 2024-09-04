@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core_old.port.in;
+package br.com.soat8.techchallenge.port.in;
 
 import br.com.soat8.techchallenge.domain_old.Customer;
 

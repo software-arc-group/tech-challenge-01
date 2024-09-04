@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain_old;
+package br.com.soat8.techchallenge;
 
 import br.com.soat8.techchallenge.domain_old.group.OnUpdate;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

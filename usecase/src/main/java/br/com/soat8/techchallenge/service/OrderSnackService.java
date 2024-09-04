@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core_old.service;
+package br.com.soat8.techchallenge.service;
 
 import br.com.soat8.techchallenge.adapter_old.out.persistence.entity.enums.OrderProgress;
 import br.com.soat8.techchallenge.core_old.port.in.OrderSnackUseCase;

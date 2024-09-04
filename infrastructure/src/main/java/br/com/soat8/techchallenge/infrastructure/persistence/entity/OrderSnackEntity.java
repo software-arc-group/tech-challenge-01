@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.adapter_old.out.persistence.entity;
+package br.com.soat8.techchallenge.infrastructure.persistence.entity;
 
 import br.com.soat8.techchallenge.adapter_old.out.persistence.entity.enums.OrderProgress;
 import jakarta.persistence.*;

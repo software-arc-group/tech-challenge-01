@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain_old;
+package br.com.soat8.techchallenge;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;

@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.adapter_old.out.persistence.retository;
+package br.com.soat8.techchallenge.infrastructure.persistence.retository;
 
 import br.com.soat8.techchallenge.adapter_old.out.persistence.entity.ProductCategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core_old.service;
+package br.com.soat8.techchallenge.service;
 
 import br.com.soat8.techchallenge.core_old.port.in.ProductUseCase;
 import br.com.soat8.techchallenge.core_old.port.out.ProductCategoryPort;

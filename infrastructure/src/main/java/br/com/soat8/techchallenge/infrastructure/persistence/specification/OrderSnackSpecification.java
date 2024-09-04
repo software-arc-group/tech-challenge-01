@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.adapter_old.out.persistence.specification;
+package br.com.soat8.techchallenge.infrastructure.persistence.specification;
 
 import br.com.soat8.techchallenge.adapter_old.out.persistence.entity.OrderSnackEntity;
 import br.com.soat8.techchallenge.adapter_old.out.persistence.entity.enums.OrderProgress;

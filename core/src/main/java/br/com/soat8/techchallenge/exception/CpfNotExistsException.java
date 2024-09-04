@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain_old.exception;
+package br.com.soat8.techchallenge.exception;
 
 public class CpfNotExistsException extends RuntimeException {
     public CpfNotExistsException(String message) {

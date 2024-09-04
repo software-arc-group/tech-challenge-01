@@ -1,0 +1,3 @@
+module usecase {
+    requires core;
+}

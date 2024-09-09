@@ -8,25 +8,23 @@ import br.com.soat8.techchallenge.entities.Customer;
 import br.com.soat8.techchallenge.entities.exception.CpfAlreadyExistsException;
 import br.com.soat8.techchallenge.entities.exception.CpfNotExistsException;
 import br.com.soat8.techchallenge.entities.exception.EmailAlreadyExistsException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CustomerService implements CustomerUseCase {
 
     private final CustomerGateway customerGateway;
     private final CustomerMapper mapper;
 
-    public CustomerService(CustomerGateway customerGateway, CustomerMapper mapper ) {
-        this.customerGateway = customerGateway;
-        this.mapper = mapper;
-    }
 
     @Override
-    public Customer saveCustomer(CustomerRequest customer) {
-        existCpf(customer);
-        existEmail(customer);
-        Customer customerEntity= mapper.toCustomer(customer);
-        return customerGateway.saveCustomer(customerEntity);
+    public Customer saveCustomer(CustomerRequest customerRequest) {
+        existCpf(customerRequest.getCpf());
+        existEmail(customerRequest.getEmailAddress());
+        Customer customer= mapper.toCustomer(customerRequest);
+        return customerGateway.saveCustomer(customer);
     }
 
     @Override
@@ -41,15 +39,15 @@ public class CustomerService implements CustomerUseCase {
         }
     }
 
-    private void existCpf(CustomerRequest customer) {
-        if (customerGateway.findByCpf(customer.getCpf())){
-            throw new CpfAlreadyExistsException("CPF already exists: " + customer.getCpf());
+    private void existCpf(String cpf ) {
+        if (customerGateway.findByCpf(cpf)){
+            throw new CpfAlreadyExistsException("CPF already exists: " + cpf );
         }
     }
 
-    private void existEmail(CustomerRequest customer) {
-        if (customerGateway.findByEmailAddress(customer.getEmailAddress())){
-            throw new EmailAlreadyExistsException("Email already exists: " + customer.getEmailAddress());
+    private void existEmail(String emailAddress) {
+        if (customerGateway.findByEmailAddress(emailAddress)){
+            throw new EmailAlreadyExistsException("Email already exists: " + emailAddress);
         }
     }
 }

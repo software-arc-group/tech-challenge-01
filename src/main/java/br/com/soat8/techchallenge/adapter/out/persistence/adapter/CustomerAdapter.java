@@ -32,10 +32,7 @@ public class CustomerAdapter implements CustomerGateway {
         Customer objCustomer = new Customer();
         Optional<CustomerEntity> customerEntity = customerRepository.findByCpf(cpf);
         if(customerEntity.isPresent()){
-            objCustomer.setId(customerEntity.get().getCustomerId().toString());
-            objCustomer.setCpf(customerEntity.get().getCpf());
-            objCustomer.setName(customerEntity.get().getName());
-            objCustomer.setEmailAddress(customerEntity.get().getEmailAddress());
+            objCustomer = mapper.toCustomer(customerEntity.get());
         }
         return objCustomer;
     }
@@ -51,10 +48,7 @@ public class CustomerAdapter implements CustomerGateway {
     }
 
     private Customer save(Customer customer) {
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setName(customer.getName());
-        customerEntity.setEmailAddress(customer.getEmailAddress());
-        customerEntity.setCpf(customer.getCpf());
+        CustomerEntity customerEntity = mapper.toEntity(customer);
         return mapper.toCustomer(customerRepository.save(customerEntity));
     }
 

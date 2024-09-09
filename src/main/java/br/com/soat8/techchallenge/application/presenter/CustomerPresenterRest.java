@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 public class CustomerPresenterRest {
-    public ResponseEntity<Customer> generateCustomerCreatedResponse(Customer customer){
+    public ResponseEntity<Void> generateCustomerCreatedResponse(Customer customer){
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(customer.getId()).toUri()).build();
     }
 }

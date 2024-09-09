@@ -1,6 +1,7 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.entity;
 
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
+import br.com.soat8.techchallenge.cliente.infraesctructure.out.persistence.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

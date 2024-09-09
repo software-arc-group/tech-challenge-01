@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.application.presenter;
+package br.com.soat8.techchallenge.cliente.presenter;
 
 import br.com.soat8.techchallenge.entities.Customer;
 import org.springframework.http.ResponseEntity;

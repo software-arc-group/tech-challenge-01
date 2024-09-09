@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.application.gateway;
+package br.com.soat8.techchallenge.cliente.gateway;
 
 import br.com.soat8.techchallenge.entities.Customer;
 

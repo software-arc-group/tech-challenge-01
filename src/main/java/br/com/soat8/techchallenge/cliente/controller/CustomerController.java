@@ -1,14 +1,14 @@
-package br.com.soat8.techchallenge.application.controller;
+package br.com.soat8.techchallenge.cliente.controller;
 
-import br.com.soat8.techchallenge.application.controller.request.CustomerRequest;
-import br.com.soat8.techchallenge.application.presenter.CustomerPresenterRest;
-import br.com.soat8.techchallenge.core.port.in.CustomerUseCase;
+import br.com.soat8.techchallenge.cliente.controller.requests.CustomerRequest;
+import br.com.soat8.techchallenge.cliente.presenter.CustomerPresenterRest;
+import br.com.soat8.techchallenge.cliente.core.usecase.interfaces.SaveCustomerUseCase;
+import br.com.soat8.techchallenge.cliente.core.usecase.interfaces.SearchCpfCustomerUseCase;
 import br.com.soat8.techchallenge.entities.Customer;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,8 @@ public class CustomerController {
 
     public static final String BASE_URL = "/lanchonete/customer";
 
-    private final CustomerUseCase customerUseCase;
+    private final SaveCustomerUseCase customerUseCase;
+    private final SearchCpfCustomerUseCase searchCustomerCpfService;
     private final CustomerPresenterRest customerPresenterRest;
 
 
@@ -32,7 +33,7 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "CPF invalid") String cpf) {
 
-        Customer result = customerUseCase.searchCustomerCpf(cpf);
+        Customer result = searchCustomerCpfService.searchCustomerCpf(cpf);
 
         return ResponseEntity.ok(result);
     }

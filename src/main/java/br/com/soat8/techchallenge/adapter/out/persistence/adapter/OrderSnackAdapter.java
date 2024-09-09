@@ -1,6 +1,6 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.adapter;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
+import br.com.soat8.techchallenge.cliente.infraesctructure.out.persistence.CustomerEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackItemEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;

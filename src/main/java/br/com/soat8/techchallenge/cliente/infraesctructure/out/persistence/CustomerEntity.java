@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.adapter.out.persistence.entity;
+package br.com.soat8.techchallenge.cliente.infraesctructure.out.persistence;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,5 @@
-package br.com.soat8.techchallenge.application.controller.request;
+package br.com.soat8.techchallenge.cliente.controller.requests;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

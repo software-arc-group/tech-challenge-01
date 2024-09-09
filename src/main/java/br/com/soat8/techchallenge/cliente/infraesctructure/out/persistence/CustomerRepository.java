@@ -1,6 +1,5 @@
-package br.com.soat8.techchallenge.adapter.out.persistence.retository;
+package br.com.soat8.techchallenge.cliente.infraesctructure.out.persistence;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.CustomerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.core.service;
 
+import br.com.soat8.techchallenge.adapter.out.persistence.domain.QRCodeData;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
 import br.com.soat8.techchallenge.core.port.in.OrderSnackUseCase;
 import br.com.soat8.techchallenge.core.port.out.MercadoPagoIntegrationPort;
@@ -33,10 +34,10 @@ public class OrderSnackService implements OrderSnackUseCase {
     @Override
     public byte[] requestOrder(OrderSnack orderSnack) {
         orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
-        String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
+        QRCodeData qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
         try {
-            byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData, 250, 250);
-            orderSnackPort.saveOrderSnack(orderSnack);
+            byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData.getQrData(), 250, 250);
+            orderSnackPort.saveOrderSnack(orderSnack, qrData.getInStoreData());
             return qrCodeImg;
 
         } catch (WriterException | IOException e) {

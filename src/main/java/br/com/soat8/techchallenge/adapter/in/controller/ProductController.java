@@ -27,7 +27,6 @@ public class ProductController {
     public ResponseEntity<Void> createProduct(@Validated(OnCreate.class) @RequestBody Product product) {
         productUseCase.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
 
     @PutMapping

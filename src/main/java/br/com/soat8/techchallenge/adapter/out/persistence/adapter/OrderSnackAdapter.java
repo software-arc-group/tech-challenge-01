@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -64,7 +65,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
 
     @Transactional
     @Override
-    public void saveOrderSnack(OrderSnack orderSnack) {
+    public void saveOrderSnack(OrderSnack orderSnack, String externalOrderId) {
         if(orderSnack == null){
             return;
         }
@@ -75,6 +76,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
                 .progress(OrderProgress.RECEIVED)
                 .totalPrice(orderSnack.getTotalPrice())
                 .customer(customer)
+                .externalOrderId(UUID.fromString(externalOrderId))
                 .build();
 
         List<OrderSnackItemEntity> orderSnackItems = orderSnack.getItems().stream()

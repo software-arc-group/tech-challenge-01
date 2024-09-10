@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.domain;
 
+import br.com.soat8.techchallenge.adapter.out.persistence.domain.QRCodeData;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
@@ -32,4 +33,6 @@ public class OrderSnack {
     private List<OrderSnackItem> items;
     @JsonIgnore
     private BigDecimal totalPrice;
+
+
 }

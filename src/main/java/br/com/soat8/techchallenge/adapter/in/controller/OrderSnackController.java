@@ -1,8 +1,8 @@
 package br.com.soat8.techchallenge.adapter.in.controller;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
-import br.com.soat8.techchallenge.core.port.in.OrderSnackUseCase;
-import br.com.soat8.techchallenge.entities.OrderSnack;
+import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
+import br.com.soat8.techchallenge.order.core.usecase.OrderSnackUseCase;
+import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

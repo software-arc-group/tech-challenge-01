@@ -1,9 +1,9 @@
 package br.com.soat8.techchallenge.core.service.mapper;
 
 
-import br.com.soat8.techchallenge.cliente.infraesctructure.out.persistence.CustomerEntity;
-import br.com.soat8.techchallenge.cliente.controller.requests.CustomerRequest;
-import br.com.soat8.techchallenge.entities.Customer;
+import br.com.soat8.techchallenge.client.adapters.repository.entity.CustomerEntity;
+import br.com.soat8.techchallenge.client.controller.DTO.CustomerRequest;
+import br.com.soat8.techchallenge.client.core.entities.Customer;
 import org.mapstruct.Mapper;
 
 @Mapper

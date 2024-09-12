@@ -1,7 +1,7 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.specification;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackEntity;
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
+import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackEntity;
+import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;

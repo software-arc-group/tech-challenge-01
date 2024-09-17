@@ -5,7 +5,7 @@ import br.com.soat8.techchallenge.order.adapters.external.MercadoPagoIntegration
 import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackPort;
 import br.com.soat8.techchallenge.order.controller.QRCodePort;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
-import br.com.soat8.techchallenge.entities.OrderSnackItem;
+import br.com.soat8.techchallenge.order.core.entities.OrderSnackItem;
 import com.google.zxing.WriterException;
 import org.springframework.stereotype.Service;
 

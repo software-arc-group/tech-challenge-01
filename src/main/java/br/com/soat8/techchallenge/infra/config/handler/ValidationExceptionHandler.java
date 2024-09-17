@@ -1,6 +1,12 @@
 package br.com.soat8.techchallenge.infra.config.handler;
 
-import br.com.soat8.techchallenge.entities.exception.*;
+import br.com.soat8.techchallenge.client.core.exceptions.CpfAlreadyExistsException;
+import br.com.soat8.techchallenge.client.core.exceptions.CpfNotExistsException;
+import br.com.soat8.techchallenge.client.core.exceptions.EmailAlreadyExistsException;
+import br.com.soat8.techchallenge.product.core.exceptions.InvalidCategoryException;
+import br.com.soat8.techchallenge.product.core.exceptions.NotFoundProductException;
+import br.com.soat8.techchallenge.product.core.exceptions.NotFoundProductIdException;
+import br.com.soat8.techchallenge.product.core.exceptions.ProductCategoryNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -32,7 +38,6 @@ public class ValidationExceptionHandler {
             EmailAlreadyExistsException.class,
             ProductCategoryNotFoundException.class,
             CpfNotExistsException.class,
-            IncompleteFieldsException.class,
             InvalidCategoryException.class,
             NotFoundProductException.class,
             NotFoundProductIdException.class

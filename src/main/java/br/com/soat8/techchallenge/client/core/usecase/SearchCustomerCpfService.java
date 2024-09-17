@@ -3,7 +3,7 @@ package br.com.soat8.techchallenge.client.core.usecase;
 import br.com.soat8.techchallenge.client.adapters.repository.CustomerGateway;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCpfCustomerUseCase;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
-import br.com.soat8.techchallenge.entities.exception.CpfNotExistsException;
+import br.com.soat8.techchallenge.client.core.exceptions.CpfNotExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

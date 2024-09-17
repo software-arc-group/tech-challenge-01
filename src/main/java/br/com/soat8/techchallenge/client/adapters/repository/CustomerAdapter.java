@@ -1,7 +1,7 @@
 package br.com.soat8.techchallenge.client.adapters.repository;
 
 import br.com.soat8.techchallenge.client.adapters.repository.entity.CustomerEntity;
-import br.com.soat8.techchallenge.core.service.mapper.CustomerMapper;
+import br.com.soat8.techchallenge.client.utils.CustomerMapper;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import org.springframework.stereotype.Component;
 

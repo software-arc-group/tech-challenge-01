@@ -1,6 +1,5 @@
 package br.com.soat8.techchallenge.order.core.entities;
 
-import br.com.soat8.techchallenge.entities.OrderSnackItem;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;

@@ -3,10 +3,10 @@ package br.com.soat8.techchallenge.client.core.usecase;
 import br.com.soat8.techchallenge.client.controller.DTO.CustomerRequest;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SaveCustomerUseCase;
 import br.com.soat8.techchallenge.client.adapters.repository.CustomerGateway;
-import br.com.soat8.techchallenge.core.service.mapper.CustomerMapper;
+import br.com.soat8.techchallenge.client.utils.CustomerMapper;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
-import br.com.soat8.techchallenge.entities.exception.CpfAlreadyExistsException;
-import br.com.soat8.techchallenge.entities.exception.EmailAlreadyExistsException;
+import br.com.soat8.techchallenge.client.core.exceptions.CpfAlreadyExistsException;
+import br.com.soat8.techchallenge.client.core.exceptions.EmailAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

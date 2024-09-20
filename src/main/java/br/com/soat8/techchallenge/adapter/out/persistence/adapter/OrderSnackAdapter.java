@@ -5,6 +5,8 @@ import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackEntit
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackItemEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.ProductEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
+import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.PaymentProgress;
+import br.com.soat8.techchallenge.adapter.out.persistence.retository.CustomerRepository;
 import br.com.soat8.techchallenge.adapter.out.persistence.retository.OrderSnackRepository;
 import br.com.soat8.techchallenge.adapter.out.persistence.specification.OrderSnackSpecification;
 import br.com.soat8.techchallenge.core.port.out.OrderSnackPort;
@@ -14,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,9 +25,11 @@ import java.util.stream.Collectors;
 public class OrderSnackAdapter implements OrderSnackPort {
 
     private final OrderSnackRepository orderSnackRepository;
+    private final CustomerRepository customerRepository;
 
-    public OrderSnackAdapter(OrderSnackRepository orderSnackRepository) {
+    public OrderSnackAdapter(OrderSnackRepository orderSnackRepository, CustomerRepository customerRepository) {
         this.orderSnackRepository = orderSnackRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
         return OrderSnack.builder()
                 .orderSnackId(orderSnack.getOrderSnackId())
                 .progress(orderSnack.getProgress().name())
-                .createdAt(orderSnack.getCreatedAt())
+                .createdAt(LocalDateTime.now())
                 .customerName(orderSnack.getCustomer().getName())
                 .cpf(orderSnack.getCustomer().getCpf())
                 .items(orderSnack.getOrderSnackItems()
@@ -69,14 +74,16 @@ public class OrderSnackAdapter implements OrderSnackPort {
         if(orderSnack == null){
             return;
         }
-        CustomerEntity customer = new CustomerEntity();
-        customer.setCustomerId(orderSnack.getCustomerId());
+        CustomerEntity customer = customerRepository.findById(orderSnack.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
         OrderSnackEntity orderSnackEntity =  OrderSnackEntity.builder()
                 .progress(OrderProgress.RECEIVED)
                 .totalPrice(orderSnack.getTotalPrice())
+                .createdAt(LocalDateTime.now())
                 .customer(customer)
-                .externalOrderId(UUID.fromString(externalOrderId))
+                .externalOrderId(externalOrderId)
+                .paymentProgress(PaymentProgress.OPPENED)
                 .build();
 
         List<OrderSnackItemEntity> orderSnackItems = orderSnack.getItems().stream()

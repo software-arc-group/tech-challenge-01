@@ -9,6 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface OrderSnackRepository extends JpaRepository<OrderSnackEntity, UUID>, JpaSpecificationExecutor<OrderSnackEntity> {
-    void updateOrderSnackPaymentStatus(OrderSnackEntity orderSnackEntity);
     OrderSnackEntity findByExternalOrderId(UUID externalOrderId);
 }

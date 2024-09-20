@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class OrderSnackItem {
+    @JsonIgnore
     private UUID orderSnackItemId;
     private BigDecimal amount;
     private String productName;

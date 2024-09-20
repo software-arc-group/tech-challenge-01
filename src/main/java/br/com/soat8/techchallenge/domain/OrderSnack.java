@@ -19,7 +19,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class OrderSnack {
+    @JsonIgnore
     private UUID orderSnackId;
+    @JsonIgnore
     private String progress;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
@@ -28,6 +30,7 @@ public class OrderSnack {
     @NotNull(message = "customer_id can not be empty")
     private UUID customerId;
     private String customerName;
+    @JsonIgnore
     private String cpf;
 
     private List<OrderSnackItem> items;

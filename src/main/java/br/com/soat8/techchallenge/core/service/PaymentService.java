@@ -23,10 +23,13 @@ public class PaymentService implements PaymentUseCase {
 
     public void updatePaymentStatus(PaymentNotification notification) {
         try{
+            log.info("Updating payment status for order: " + notification.getData().getId());
             OrderSnackPaymentStatus mercadoPagoOrderData = mercadoPagoIntegrationPort.getOrderData(notification.getData().getId());
             OrderSnackEntity orderSnackEntity = orderSnackRepository.findByExternalOrderId(mercadoPagoOrderData.getExternalOrderId());
             orderSnackEntity.setPaymentProgress(generatePaymentStatus(mercadoPagoOrderData.getPaymentStatus()));
+            log.info("Payment status updated to: " + orderSnackEntity.getPaymentProgress());
             orderSnackRepository.save(orderSnackEntity);
+            log.info("Payment status updated successfully");
         }catch (Exception e){
             log.error("Error updating payment status: " + e.getMessage());
             throw new RuntimeException("Error updating payment status: " + e.getMessage());
@@ -37,7 +40,7 @@ public class PaymentService implements PaymentUseCase {
     private PaymentProgress generatePaymentStatus(String status){
         return switch (status) {
             case "closed" -> PaymentProgress.APPROVED;
-            case "opened" -> PaymentProgress.OPENED;
+            case "opened" -> PaymentProgress.OPPENED;
             case "expired" -> PaymentProgress.EXPIRED;
             default -> throw new UnsupportedOperationException("Payment stauts" + status + " not supported, choose between: closed, opened or expired");
         };

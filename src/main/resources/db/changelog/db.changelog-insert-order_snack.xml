@@ -23,6 +23,9 @@
             <column name="created_at" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
+            <column name="external_order_id" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
 
         <insert tableName="order_snack">

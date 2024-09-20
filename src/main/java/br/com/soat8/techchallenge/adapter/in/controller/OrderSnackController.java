@@ -4,6 +4,8 @@ import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProg
 import br.com.soat8.techchallenge.core.port.in.OrderSnackUseCase;
 import br.com.soat8.techchallenge.domain.OrderSnack;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +30,9 @@ public class OrderSnackController {
 
     @PostMapping()
     public ResponseEntity<byte[]> createOrder(@Valid @RequestBody OrderSnack orderSnack){
-        return ResponseEntity.ok(orderSnackUseCase.requestOrder(orderSnack));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, "image/png");
+        return new ResponseEntity<>(orderSnackUseCase.requestOrder(orderSnack), headers, HttpStatus.OK);
     }
 
 

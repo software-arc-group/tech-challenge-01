@@ -59,5 +59,5 @@ public class OrderSnackEntity implements Serializable {
     private BigDecimal totalPrice;
 
     @Column(name = "external_order_id", nullable = false)
-    private UUID externalOrderId;
+    private String externalOrderId;
 }

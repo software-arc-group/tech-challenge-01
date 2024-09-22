@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,11 @@ public class CustomerController implements CustomerApi{
 
     public static final String BASE_URL = "/lanchonete/customer";
 
+    @Autowired
     private final SaveCustomerUseCase customerUseCase;
+    @Autowired
     private final SearchCpfCustomerUseCase searchCustomerCpfService;
+    @Autowired
     private final CustomerPresenterRest customerPresenterRest;
 
 

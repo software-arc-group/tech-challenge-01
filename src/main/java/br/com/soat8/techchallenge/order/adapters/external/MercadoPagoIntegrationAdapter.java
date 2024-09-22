@@ -5,6 +5,8 @@ import br.com.soat8.techchallenge.order.core.entities.mercadopago.MercadoPagoIte
 import br.com.soat8.techchallenge.order.core.entities.mercadopago.MercadoPagoOrder;
 import br.com.soat8.techchallenge.order.core.entities.mercadopago.QRCodeData;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,24 +16,22 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Component
 public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort {
     @Value("${integration.mercadopago.url}")
-    private String url;
+    private final String url;
     @Value("${integration.mercadopago.path}")
-    private String path;
+    private final String path;
     @Value("${integration.mercadopago.accesstoken}")
-    private String accessToken;
+    private final String accessToken;
     @Value("${integration.mercadopago.externalReference}")
-    private String externalReference;
+    private final String externalReference;
 
     private static final String DEFAULT_DESCRIPTION = "Order Snack";
 
+    @Autowired
     private RestTemplate restTemplate;
-
-    public MercadoPagoIntegrationAdapter(){
-        restTemplate = new RestTemplate();
-    }
 
     @Override
     public String requestQrData(OrderSnack order) {

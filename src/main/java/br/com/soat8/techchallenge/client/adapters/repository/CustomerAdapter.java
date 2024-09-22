@@ -3,21 +3,18 @@ package br.com.soat8.techchallenge.client.adapters.repository;
 import br.com.soat8.techchallenge.client.adapters.repository.entity.CustomerEntity;
 import br.com.soat8.techchallenge.client.utils.CustomerMapper;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@AllArgsConstructor
 @Component
 public class CustomerAdapter implements CustomerGateway {
-
+    @Autowired
     private final CustomerRepository customerRepository;
+    @Autowired
     private final CustomerMapper mapper;
-
-
-    public CustomerAdapter(CustomerRepository customerRepository, CustomerMapper mapper) {
-        this.customerRepository = customerRepository;
-        this.mapper = mapper;
-    }
 
     @Override
     public Customer saveCustomer(Customer customer) {

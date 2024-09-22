@@ -8,13 +8,16 @@ import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.client.core.exceptions.CpfAlreadyExistsException;
 import br.com.soat8.techchallenge.client.core.exceptions.EmailAlreadyExistsException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class SaveCustomerService implements SaveCustomerUseCase {
 
+    @Autowired
     private final CustomerGateway customerGateway;
+    @Autowired
     private final CustomerMapper mapper;
 
 

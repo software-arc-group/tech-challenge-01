@@ -5,11 +5,13 @@ import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCpfCustom
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.client.core.exceptions.CpfNotExistsException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class SearchCustomerCpfService implements SearchCpfCustomerUseCase {
+    @Autowired
     private final CustomerGateway customerGateway;
 
     @Override

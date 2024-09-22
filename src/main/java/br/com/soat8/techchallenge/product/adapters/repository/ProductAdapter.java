@@ -5,19 +5,20 @@ import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEn
 import br.com.soat8.techchallenge.product.core.entities.Product;
 import br.com.soat8.techchallenge.product.core.entities.ProductCategory;
 import br.com.soat8.techchallenge.product.core.exceptions.NotFoundProductException;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@AllArgsConstructor
 @Component
 public class ProductAdapter implements ProductPort {
 
+    @Autowired
     private final ProductRepository productRepository;
 
-    public ProductAdapter(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public void saveProduct(Product product, ProductCategory productCategory) {

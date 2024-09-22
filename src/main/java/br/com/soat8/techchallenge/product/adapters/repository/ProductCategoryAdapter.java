@@ -4,6 +4,8 @@ import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductCa
 import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;
 import br.com.soat8.techchallenge.product.core.entities.Product;
 import br.com.soat8.techchallenge.product.core.entities.ProductCategory;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,13 +13,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class ProductCategoryAdapter implements ProductCategoryPort {
 
+    @Autowired
     private final ProductCategoryRepository productCategoryRepository;
 
-    public ProductCategoryAdapter(ProductCategoryRepository productCategoryRepository) {
-        this.productCategoryRepository = productCategoryRepository;
-    }
 
     @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {

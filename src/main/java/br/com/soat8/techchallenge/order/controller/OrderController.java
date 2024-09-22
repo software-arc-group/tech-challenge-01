@@ -1,7 +1,7 @@
 package br.com.soat8.techchallenge.order.controller;
 
+import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
 import br.com.soat8.techchallenge.order.core.usecase.OrderSnackUseCase;
-import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class OrderController {
     private OrderSnackUseCase service;
 
     @PostMapping()
-    public ResponseEntity<byte[]> createOrder(@Valid @RequestBody OrderSnack orderSnack){
+    public ResponseEntity<byte[]> createOrder(@Valid @RequestBody OrderSnackRequest orderSnack){
         return ResponseEntity.ok(service.requestOrder(orderSnack));
     }
 }

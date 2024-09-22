@@ -6,7 +6,7 @@ import br.com.soat8.techchallenge.client.controller.DTO.CustomerRequest;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CustomerMapper {
     Customer toCustomer(CustomerRequest customerRequest);
     Customer toCustomer(CustomerEntity entity);

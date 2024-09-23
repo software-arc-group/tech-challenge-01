@@ -16,22 +16,23 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+
 @Component
 public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort {
     @Value("${integration.mercadopago.url}")
-    private final String url;
+    private  String url;
     @Value("${integration.mercadopago.path}")
-    private final String path;
+    private  String path;
     @Value("${integration.mercadopago.accesstoken}")
-    private final String accessToken;
+    private  String accessToken;
     @Value("${integration.mercadopago.externalReference}")
-    private final String externalReference;
+    private  String externalReference;
 
     private static final String DEFAULT_DESCRIPTION = "Order Snack";
 
     @Autowired
     private RestTemplate restTemplate;
+
 
     @Override
     public String requestQrData(OrderSnack order) {

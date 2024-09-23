@@ -46,6 +46,7 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
         }
         return Product.builder()
                 .productId(entity.getProductId())
+                .categoryId(entity.getCategory().getProductCategoryId())
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .price(entity.getPrice())

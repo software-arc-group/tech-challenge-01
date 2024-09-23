@@ -36,14 +36,21 @@ public class ValidationExceptionHandler {
     @ExceptionHandler({
             CpfAlreadyExistsException.class,
             EmailAlreadyExistsException.class,
-            ProductCategoryNotFoundException.class,
+    })
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<String> handleConflictExceptions(RuntimeException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({
             CpfNotExistsException.class,
+            ProductCategoryNotFoundException.class,
             InvalidCategoryException.class,
             NotFoundProductException.class,
             NotFoundProductIdException.class
     })
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<String> handleConflictExceptions(RuntimeException ex) {
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleNotFoundExceptions(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 

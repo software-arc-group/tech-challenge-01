@@ -34,7 +34,7 @@ public class CustomerController implements CustomerApi{
     }
 
     @GetMapping
-    public ResponseEntity<Customer> searchCustomerCpf(@Valid @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "CPF invalid") String cpf) {
+    public ResponseEntity<Customer> searchCustomerCpf( String cpf) {
 
         Customer result = searchCustomerCpfService.searchCustomerCpf(cpf);
 

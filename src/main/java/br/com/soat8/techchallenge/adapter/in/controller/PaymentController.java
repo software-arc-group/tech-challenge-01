@@ -6,10 +6,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -20,8 +19,13 @@ public class PaymentController {
     public PaymentUseCase paymentUseCase;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void updatePaymentStatus(@RequestBody PaymentNotification notification) throws JsonProcessingException {
         String not = new ObjectMapper().writeValueAsString(notification);
+        if(notification.getData().getId().isBlank()){
+            log.error("ID NOT FOUND IN NOTIFICATION: " + not);
+            return;
+        }
         log.info("NEW NOTIFICATION ARRIVED: " + not);
         paymentUseCase.updatePaymentStatus(notification);
     }

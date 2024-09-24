@@ -70,7 +70,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
 
     @Transactional
     @Override
-    public void saveOrderSnack(OrderSnack orderSnack, String externalOrderId) {
+    public void saveOrderSnack(OrderSnack orderSnack, UUID externalOrderId) {
         if(orderSnack == null){
             return;
         }
@@ -82,7 +82,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
                 .totalPrice(orderSnack.getTotalPrice())
                 .createdAt(LocalDateTime.now())
                 .customer(customer)
-                .externalOrderId(externalOrderId)
+                .externalOrderId(String.valueOf(externalOrderId))
                 .paymentProgress(PaymentProgress.OPPENED)
                 .build();
 

@@ -5,6 +5,5 @@ import lombok.Data;
 
 @Data
 public class PaymentNotificationData {
-    @NotNull
     private String id;
 }

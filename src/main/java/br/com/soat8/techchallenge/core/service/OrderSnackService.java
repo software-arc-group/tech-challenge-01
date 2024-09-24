@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderSnackService implements OrderSnackUseCase {
@@ -33,11 +34,12 @@ public class OrderSnackService implements OrderSnackUseCase {
 
     @Override
     public byte[] requestOrder(OrderSnack orderSnack) {
+        UUID externalReference = UUID.randomUUID();
         orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
-        QRCodeData qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
+        QRCodeData qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack, externalReference);
         try {
             byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData.getQrData(), 250, 250);
-            orderSnackPort.saveOrderSnack(orderSnack, qrData.getInStoreData());
+            orderSnackPort.saveOrderSnack(orderSnack, externalReference);
             return qrCodeImg;
 
         } catch (WriterException | IOException e) {

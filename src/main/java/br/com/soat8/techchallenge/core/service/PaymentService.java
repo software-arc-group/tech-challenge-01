@@ -25,8 +25,9 @@ public class PaymentService implements PaymentUseCase {
         try{
             log.info("Updating payment status for order: " + notification.getData().getId());
             OrderSnackPaymentStatus mercadoPagoOrderData = mercadoPagoIntegrationPort.getOrderData(notification.getData().getId());
-            OrderSnackEntity orderSnackEntity = orderSnackRepository.findByExternalOrderId(mercadoPagoOrderData.getExternalOrderId());
+            OrderSnackEntity orderSnackEntity = orderSnackRepository.findByExternalOrderId(String.valueOf(mercadoPagoOrderData.getExternalOrderId()));
             orderSnackEntity.setPaymentProgress(generatePaymentStatus(mercadoPagoOrderData.getPaymentStatus()));
+            orderSnackEntity.setProgress(setOrderStatus(orderSnackEntity.getPaymentProgress()));
             log.info("Payment status updated to: " + orderSnackEntity.getPaymentProgress());
             orderSnackRepository.save(orderSnackEntity);
             log.info("Payment status updated successfully");
@@ -39,10 +40,18 @@ public class PaymentService implements PaymentUseCase {
 
     private PaymentProgress generatePaymentStatus(String status){
         return switch (status) {
-            case "closed" -> PaymentProgress.APPROVED;
+            case "approved" -> PaymentProgress.APPROVED;
             case "opened" -> PaymentProgress.OPPENED;
             case "expired" -> PaymentProgress.EXPIRED;
-            default -> throw new UnsupportedOperationException("Payment stauts" + status + " not supported, choose between: closed, opened or expired");
+            default -> throw new UnsupportedOperationException("Payment status" + status + " not supported, choose between: closed, opened or expired");
         };
+    }
+
+    private OrderProgress setOrderStatus(PaymentProgress paymentProgress){
+        if(paymentProgress.equals(PaymentProgress.APPROVED)){
+           return OrderProgress.IN_PREPARATION;
+        }else{
+            return OrderProgress.RECEIVED;
+        }
     }
 }

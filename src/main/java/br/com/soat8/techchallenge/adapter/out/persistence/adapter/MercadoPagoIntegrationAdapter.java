@@ -29,8 +29,6 @@ public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort
     private String path;
     @Value("${integration.mercadopago.accesstoken}")
     private String accessToken;
-    @Value("${integration.mercadopago.externalReference}")
-    private String externalReference;
 
     @Value("${integration.mercadopago.orderDataUrl}")
     private String orderDataUrl;
@@ -46,9 +44,9 @@ public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort
     }
 
     @Override
-    public QRCodeData requestQrData(OrderSnack order) {
+    public QRCodeData requestQrData(OrderSnack order, UUID externalReference) {
         String fullUrl = url + "/" +  path + "?access_token=" + accessToken;
-        MercadoPagoOrder mercadoPagoOrder = convert(order);
+        MercadoPagoOrder mercadoPagoOrder = convert(order, externalReference);
        try{
            log.info("Requesting QRCode data to MercadoPago with order: " + new ObjectMapper().writeValueAsString(mercadoPagoOrder));
            ResponseEntity<QRCodeData> response = restTemplate.postForEntity(fullUrl, mercadoPagoOrder, QRCodeData.class);
@@ -69,7 +67,7 @@ public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort
             ResponseEntity<MercadoPagoOrderData> response = restTemplate.getForEntity(fullUrl, MercadoPagoOrderData.class);
             MercadoPagoOrderData mercadoPagoOrderData = Objects.requireNonNull(response.getBody());
             log.info("response: " + new ObjectMapper().writeValueAsString(mercadoPagoOrderData));
-            return new OrderSnackPaymentStatus(UUID.fromString(mercadoPagoOrderData.getId()), mercadoPagoOrderData.getStatus());
+            return new OrderSnackPaymentStatus(UUID.fromString(mercadoPagoOrderData.getExternalReference()), mercadoPagoOrderData.getStatus());
 
         }catch (Exception ex){
             log.info("Error requesting order data to MercadoPago: " + ex.getMessage());
@@ -77,11 +75,11 @@ public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort
         }
     }
 
-    public MercadoPagoOrder convert(OrderSnack orderSnack) {
+    public MercadoPagoOrder convert(OrderSnack orderSnack, UUID externalReference) {
         MercadoPagoOrder mercadoPagoOrder = new MercadoPagoOrder();
         mercadoPagoOrder.setDescription(DEFAULT_DESCRIPTION);
         mercadoPagoOrder.setTitle(DEFAULT_DESCRIPTION);
-        mercadoPagoOrder.setExternalReference(externalReference);
+        mercadoPagoOrder.setExternalReference(String.valueOf(externalReference));
         mercadoPagoOrder.setTotalAmount(orderSnack.getTotalPrice());
         mercadoPagoOrder.setNotificationUrl(notificationUrl);
 

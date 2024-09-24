@@ -20,14 +20,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class OrderSnackRequest {
-    private UUID orderSnackId;
-    private String progress;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime createdAt;
-    private UUID customerId;
-    private String customerName;
-    private String cpf;
-    private List<OrderSnackItem> items;
-    @JsonIgnore
-    private BigDecimal totalPrice;
+    private String customerId;
+    private List<String> items;
 }

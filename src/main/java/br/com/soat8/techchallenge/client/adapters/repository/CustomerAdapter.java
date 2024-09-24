@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
+
 @AllArgsConstructor
 @Component
 public class CustomerAdapter implements CustomerGateway {
@@ -46,5 +48,13 @@ public class CustomerAdapter implements CustomerGateway {
         CustomerEntity customerEntity = mapper.toEntity(customer);
         return mapper.toCustomer(customerRepository.save(customerEntity));
     }
-
+    @Override
+    public Boolean findByCustomerId(UUID customerId){
+        return customerRepository.existsById(customerId);
+    }
+    @Override
+    public Customer getCustomerById(UUID customerId) {
+        Optional<CustomerEntity> customerEntity = customerRepository.findById(customerId);
+        return mapper.toCustomer(customerEntity.get());
+    }
 }

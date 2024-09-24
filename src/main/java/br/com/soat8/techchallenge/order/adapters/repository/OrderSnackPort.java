@@ -10,4 +10,5 @@ public interface OrderSnackPort {
     List<OrderSnack> listOrderSnack(OrderProgress progress, String cpf);
 
     void saveOrderSnack(OrderSnack orderSnack);
+
 }

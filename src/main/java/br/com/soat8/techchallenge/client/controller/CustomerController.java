@@ -2,11 +2,9 @@ package br.com.soat8.techchallenge.client.controller;
 
 import br.com.soat8.techchallenge.client.controller.DTO.CustomerRequest;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SaveCustomerUseCase;
-import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCpfCustomerUseCase;
+import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerCpfUseCase;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,7 @@ public class CustomerController implements CustomerApi{
     @Autowired
     private final SaveCustomerUseCase customerUseCase;
     @Autowired
-    private final SearchCpfCustomerUseCase searchCustomerCpfService;
+    private final SearchCustomerCpfUseCase searchCustomerCpfService;
     @Autowired
     private final CustomerPresenterRest customerPresenterRest;
 

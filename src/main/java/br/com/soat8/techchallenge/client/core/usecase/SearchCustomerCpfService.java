@@ -1,7 +1,7 @@
 package br.com.soat8.techchallenge.client.core.usecase;
 
 import br.com.soat8.techchallenge.client.adapters.repository.CustomerGateway;
-import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCpfCustomerUseCase;
+import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerCpfUseCase;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.client.core.exceptions.CpfNotExistsException;
 import jakarta.validation.Valid;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class SearchCustomerCpfService implements SearchCpfCustomerUseCase {
+public class SearchCustomerCpfService implements SearchCustomerCpfUseCase {
     @Autowired
     private final CustomerGateway customerGateway;
 

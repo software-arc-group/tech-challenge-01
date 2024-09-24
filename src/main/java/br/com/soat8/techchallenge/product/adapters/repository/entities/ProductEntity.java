@@ -1,6 +1,6 @@
 package br.com.soat8.techchallenge.product.adapters.repository.entities;
 
-import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackItemEntity;
+import br.com.soat8.techchallenge.item.adapter.repository.entities.OrderSnackItemEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

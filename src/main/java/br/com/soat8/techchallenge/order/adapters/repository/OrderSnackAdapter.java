@@ -2,7 +2,7 @@ package br.com.soat8.techchallenge.order.adapters.repository;
 
 import br.com.soat8.techchallenge.client.adapters.repository.entity.CustomerEntity;
 import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackEntity;
-import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackItemEntity;
+import br.com.soat8.techchallenge.item.adapter.repository.entities.OrderSnackItemEntity;
 import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;

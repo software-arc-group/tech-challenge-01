@@ -1,5 +1,9 @@
 package br.com.soat8.techchallenge.order.core.usecase;
 
+import br.com.soat8.techchallenge.client.core.entities.Customer;
+import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerCpfUseCase;
+import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerIdUseCase;
+import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackAdapter;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
@@ -17,7 +21,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -33,11 +39,18 @@ public class OrderSnackService implements OrderSnackUseCase {
     private final OrderProgressMapper progressMapper;
     @Autowired
     private final OrderSnackMapper orderSnackMapper;
+    @Autowired
+    private final SearchCustomerIdUseCase searchCustomerIdUseCase;
+    @Autowired
+
 
 
     @Override
     public byte[] requestOrder(OrderSnackRequest orderSnackRequest) {
-        OrderSnack orderSnack = orderSnackMapper.toOrderSnack(orderSnackRequest);
+
+        Customer customer = searchCustomerIdUseCase.searchById(orderSnackRequest.getCustomerId());
+        getListOfItems()
+
         orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
         String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
         try {
@@ -48,6 +61,12 @@ public class OrderSnackService implements OrderSnackUseCase {
         } catch (WriterException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private List<OrderSnackItem> getListOfItems(ArrayList<String> list) {
+        list.stream().
+            map(orderSnackPort.)
+                .collect(Collectors.toList());
     }
 
     private BigDecimal calculateTotalPrice(OrderSnack orderSnack) {

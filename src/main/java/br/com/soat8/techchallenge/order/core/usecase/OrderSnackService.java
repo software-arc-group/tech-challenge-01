@@ -3,6 +3,8 @@ package br.com.soat8.techchallenge.order.core.usecase;
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerCpfUseCase;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerIdUseCase;
+import br.com.soat8.techchallenge.item.adapter.OrderSnackItemPort;
+import br.com.soat8.techchallenge.item.core.usecase.GetOrderSnackItemByIdUseCase;
 import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackAdapter;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
@@ -21,7 +23,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,16 +47,17 @@ public class OrderSnackService implements OrderSnackUseCase {
     @Autowired
     private final SearchCustomerIdUseCase searchCustomerIdUseCase;
     @Autowired
+    private final GetOrderSnackItemByIdUseCase getOrderSnackItemByIdUseCase;
 
 
 
     @Override
-    public byte[] requestOrder(OrderSnackRequest orderSnackRequest) {
+    public byte[] requestOrder(OrderSnackRequest  orderSnackRequest) {
 
         Customer customer = searchCustomerIdUseCase.searchById(orderSnackRequest.getCustomerId());
-        getListOfItems()
-
-        orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
+        List<OrderSnackItem> items = getListOfItems(orderSnackRequest.getItems());
+        OrderSnack.builder().items(items).customer(customer).createdAt(LocalDateTime.now()).build();
+        orderSnack.setTotalPrice(calculateTotalPrice(Itens));
         String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
         try {
             byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData, 250, 250);
@@ -63,9 +69,9 @@ public class OrderSnackService implements OrderSnackUseCase {
         }
     }
 
-    private List<OrderSnackItem> getListOfItems(ArrayList<String> list) {
-        list.stream().
-            map(orderSnackPort.)
+    private List<OrderSnackItem> getListOfItems(List<String> list) {
+        return list.stream().
+            map(getOrderSnackItemByIdUseCase::getOrderSnackItem)
                 .collect(Collectors.toList());
     }
 

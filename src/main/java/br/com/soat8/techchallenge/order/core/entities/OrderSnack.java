@@ -1,5 +1,6 @@
 package br.com.soat8.techchallenge.order.core.entities;
 
+import br.com.soat8.techchallenge.client.core.entities.Customer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
@@ -24,10 +25,7 @@ public class OrderSnack {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt;
 
-    @NotNull(message = "customer_id can not be empty")
-    private UUID customerId;
-    private String customerName;
-    private String cpf;
+    Customer customer;
 
     private List<OrderSnackItem> items;
     @JsonIgnore

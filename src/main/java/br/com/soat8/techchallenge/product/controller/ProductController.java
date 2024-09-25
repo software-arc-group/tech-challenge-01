@@ -5,6 +5,8 @@ import br.com.soat8.techchallenge.product.core.usecase.interfaces.ProductUseCase
 import br.com.soat8.techchallenge.product.core.entities.Product;
 import br.com.soat8.techchallenge.product.controller.group.OnCreate;
 import br.com.soat8.techchallenge.product.controller.group.OnUpdate;
+import br.com.soat8.techchallenge.product.core.usecase.interfaces.RemoveProductUseCase;
+import br.com.soat8.techchallenge.product.core.usecase.interfaces.SaveProductUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,10 @@ public class ProductController {
     public static final String BASE_URL = "/lanchonete/product";
 
     @Autowired
-    private final ProductUseCase productUseCase;
+    private final SaveProductUseCase productUseCase;
+
+    @Autowired
+    private final RemoveProductUseCase removeProductUseCase;
 
     @PostMapping
     public ResponseEntity<Void> createProduct(@Validated(OnCreate.class) @RequestBody ProductRequest productRequest) {
@@ -39,7 +44,7 @@ public class ProductController {
 
     @DeleteMapping("/{productId}")
     public ResponseEntity<Product> removeProduct(@PathVariable("productId") UUID productId) {
-        productUseCase.removeProduct(productId);
+        removeProductUseCase.removeProduct(productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

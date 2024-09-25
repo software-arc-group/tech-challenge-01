@@ -1,9 +1,8 @@
 package br.com.soat8.techchallenge.order.controller;
 
 import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
-import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
-import br.com.soat8.techchallenge.order.core.usecase.OrderSnackUseCase;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
+import br.com.soat8.techchallenge.order.core.usecase.interfaces.ListOrderSnackUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class OrderSnackController {
     public static final String BASE_URL = "/lanchonete/order";
 
     @Autowired
-    private final OrderSnackUseCase orderSnackUseCase;
+    private final ListOrderSnackUseCase orderSnackUseCase;
 
 
     @GetMapping

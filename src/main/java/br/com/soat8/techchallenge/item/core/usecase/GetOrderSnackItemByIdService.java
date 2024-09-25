@@ -5,9 +5,11 @@ import br.com.soat8.techchallenge.item.core.exception.ItemIdNotExistsException;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnackItem;
 import br.com.soat8.techchallenge.order.core.exceptions.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class GetOrderSnackItemByIdService implements GetOrderSnackItemByIdUseCase{
     @Autowired
     OrderSnackItemPort orderSnackItemPort;

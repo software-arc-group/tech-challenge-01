@@ -7,4 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface OrderSnackItemMapper {
     OrderSnackItem toOrderSnackItem(OrderSnackItemEntity entity);
+    OrderSnackItemEntity toEntity(OrderSnackItem entity);
 }

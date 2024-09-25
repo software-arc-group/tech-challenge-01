@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class OrderSnackRequest {
     private String customerId;
-    private List<String> items;
+    private List<OrderItemRequest> items;
 }

@@ -1,6 +1,10 @@
 package br.com.soat8.techchallenge.order.core.entities;
 
+import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;
+import br.com.soat8.techchallenge.product.core.entities.Product;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -18,13 +22,8 @@ import java.util.UUID;
 public class OrderSnackItem {
     private UUID orderSnackItemId;
     private BigDecimal amount;
-    private String productName;
 
-    @JsonProperty("product_id")
-    @NotBlank
-    private UUID productId;
-    @NotBlank
-    private BigDecimal price;
+    private Product product;
 
     @Min(value = 1, message = "The quantity must be more than zero.")
     private Integer quantity;

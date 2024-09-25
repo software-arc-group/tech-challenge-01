@@ -1,21 +1,19 @@
 package br.com.soat8.techchallenge.order.core.usecase;
 
 import br.com.soat8.techchallenge.client.core.entities.Customer;
-import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerCpfUseCase;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerIdUseCase;
-import br.com.soat8.techchallenge.item.adapter.OrderSnackItemPort;
 import br.com.soat8.techchallenge.item.core.usecase.GetOrderSnackItemByIdUseCase;
-import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackAdapter;
-import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
+import br.com.soat8.techchallenge.order.controller.DTO.OrderItemRequest;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
-import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.adapters.external.MercadoPagoIntegrationPort;
 import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackPort;
 import br.com.soat8.techchallenge.order.controller.QRCodePort;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnackItem;
-import br.com.soat8.techchallenge.order.utils.OrderProgressMapper;
+import br.com.soat8.techchallenge.order.core.usecase.interfaces.CreateOrderSnackUseCase;
 import br.com.soat8.techchallenge.order.utils.OrderSnackMapper;
+import br.com.soat8.techchallenge.product.core.entities.Product;
+import br.com.soat8.techchallenge.product.core.usecase.interfaces.GetProductUseCase;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +21,28 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-public class OrderSnackService implements OrderSnackUseCase {
+public class CreateOrderSnackService implements CreateOrderSnackUseCase {
 
     @Autowired
     private final MercadoPagoIntegrationPort mercadoPagoIntegrationPort;
     @Autowired
     private final QRCodePort qrCodePort;
     @Autowired
-    private final OrderSnackPort orderSnackPort;
-    @Autowired
-    private final OrderProgressMapper progressMapper;
-    @Autowired
     private final OrderSnackMapper orderSnackMapper;
     @Autowired
     private final SearchCustomerIdUseCase searchCustomerIdUseCase;
     @Autowired
     private final GetOrderSnackItemByIdUseCase getOrderSnackItemByIdUseCase;
+    @Autowired
+    private final OrderSnackPort orderSnackPort;
+    @Autowired
+    private final GetProductUseCase getProductUseCase;
 
 
 
@@ -55,23 +50,23 @@ public class OrderSnackService implements OrderSnackUseCase {
     public byte[] requestOrder(OrderSnackRequest  orderSnackRequest) {
 
         Customer customer = searchCustomerIdUseCase.searchById(orderSnackRequest.getCustomerId());
-        List<OrderSnackItem> items = getListOfItems(orderSnackRequest.getItems());
-        OrderSnack.builder().items(items).customer(customer).createdAt(LocalDateTime.now()).build();
-        orderSnack.setTotalPrice(calculateTotalPrice(Itens));
+        List<Product> items = getListOfItems(orderSnackRequest.getItems());
+
+        OrderSnack orderSnack = OrderSnack.builder().items(items).customer(customer).createdAt(LocalDateTime.now()).build();
+        orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
         String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
         try {
             byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData, 250, 250);
             orderSnackPort.saveOrderSnack(orderSnack);
             return qrCodeImg;
-
         } catch (WriterException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private List<OrderSnackItem> getListOfItems(List<String> list) {
+    private List<Product> getListOfItems(List<OrderItemRequest> list) {
         return list.stream().
-            map(getOrderSnackItemByIdUseCase::getOrderSnackItem)
+            map(item -> getProductUseCase.getProduct(item.getProductId()))
                 .collect(Collectors.toList());
     }
 
@@ -89,9 +84,4 @@ public class OrderSnackService implements OrderSnackUseCase {
         return orderSnackItem.getPrice().multiply(quantityAsBigDecimal);
     }
 
-    @Override
-    public List<OrderSnack> listOrderSnack(OrderProgressRequest progress, String cpf) {
-        OrderProgress orderProgress = progressMapper.toOrderProgress(progress);
-        return orderSnackPort.listOrderSnack(orderProgress, cpf);
-    }
 }

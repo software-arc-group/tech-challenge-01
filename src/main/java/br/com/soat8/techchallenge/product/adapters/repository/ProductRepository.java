@@ -11,4 +11,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     void deleteById(UUID id);
 
+    ProductEntity getByProductId(UUID id);
 }

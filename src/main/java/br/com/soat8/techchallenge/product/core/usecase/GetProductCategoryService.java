@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class ProductCategoryService implements ProductCategoryUseCase {
+public class GetProductCategoryService implements ProductCategoryUseCase {
 
     @Autowired
     private final ProductCategoryPort productCategoryPort;

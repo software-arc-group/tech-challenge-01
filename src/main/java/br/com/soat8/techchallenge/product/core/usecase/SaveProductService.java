@@ -29,7 +29,7 @@ public class SaveProductService implements SaveProductUseCase {
 
     @Override
     public void saveProduct(ProductRequest productRequest) {
-        Product product = productMapper.toProduct(productRequest);
+        Product product = productMapper.toRequest(productRequest);
         ProductCategory productCategory = getProductCategory(product);
         productPort.saveProduct(product, productCategory);
     }

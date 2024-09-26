@@ -1,7 +1,6 @@
 package br.com.soat8.techchallenge.product.controller;
 
 import br.com.soat8.techchallenge.product.controller.DTO.ProductRequest;
-import br.com.soat8.techchallenge.product.core.usecase.interfaces.ProductUseCase;
 import br.com.soat8.techchallenge.product.core.entities.Product;
 import br.com.soat8.techchallenge.product.controller.group.OnCreate;
 import br.com.soat8.techchallenge.product.controller.group.OnUpdate;

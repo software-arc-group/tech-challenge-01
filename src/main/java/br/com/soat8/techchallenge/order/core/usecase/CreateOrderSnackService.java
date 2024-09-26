@@ -2,7 +2,6 @@ package br.com.soat8.techchallenge.order.core.usecase;
 
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.client.core.usecase.interfaces.SearchCustomerIdUseCase;
-import br.com.soat8.techchallenge.item.core.usecase.GetOrderSnackItemByIdUseCase;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderItemRequest;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
 import br.com.soat8.techchallenge.order.adapters.external.MercadoPagoIntegrationPort;
@@ -34,11 +33,7 @@ public class CreateOrderSnackService implements CreateOrderSnackUseCase {
     @Autowired
     private final QRCodePort qrCodePort;
     @Autowired
-    private final OrderSnackMapper orderSnackMapper;
-    @Autowired
     private final SearchCustomerIdUseCase searchCustomerIdUseCase;
-    @Autowired
-    private final GetOrderSnackItemByIdUseCase getOrderSnackItemByIdUseCase;
     @Autowired
     private final OrderSnackPort orderSnackPort;
     @Autowired
@@ -50,9 +45,8 @@ public class CreateOrderSnackService implements CreateOrderSnackUseCase {
     public byte[] requestOrder(OrderSnackRequest  orderSnackRequest) {
 
         Customer customer = searchCustomerIdUseCase.searchById(orderSnackRequest.getCustomerId());
-        List<Product> items = getListOfItems(orderSnackRequest.getItems());
-
-        OrderSnack orderSnack = OrderSnack.builder().items(items).customer(customer).createdAt(LocalDateTime.now()).build();
+        List<OrderSnackItem> listOfOrderItems = generateListOfOrderItems(orderSnackRequest.getItems());
+        OrderSnack orderSnack = OrderSnack.builder().items(listOfOrderItems).customer(customer).createdAt(LocalDateTime.now()).build();
         orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
         String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
         try {
@@ -64,24 +58,26 @@ public class CreateOrderSnackService implements CreateOrderSnackUseCase {
         }
     }
 
-    private List<Product> getListOfItems(List<OrderItemRequest> list) {
+    private List<OrderSnackItem> generateListOfOrderItems(List<OrderItemRequest> list) {
         return list.stream().
-            map(item -> getProductUseCase.getProduct(item.getProductId()))
+            map(item -> generateOrderItem(item.getProductId(), item.getQtd()))
                 .collect(Collectors.toList());
+    }
+
+    private OrderSnackItem generateOrderItem(String productId, int qtd){
+        Product product = getProductUseCase.getProduct(productId);
+        BigDecimal quantityAsBigDecimal = BigDecimal.valueOf(qtd);
+        BigDecimal fullValue = product.getPrice().multiply(quantityAsBigDecimal);
+        return new OrderSnackItem(null, fullValue, product,qtd );
     }
 
     private BigDecimal calculateTotalPrice(OrderSnack orderSnack) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (OrderSnackItem item : orderSnack.getItems()) {
-            BigDecimal itemTotal = getTotalPrice(item);
+            BigDecimal itemTotal = item.getAmount();
             totalPrice = totalPrice.add(itemTotal);
         }
         return totalPrice;
-    }
-
-    public BigDecimal getTotalPrice(OrderSnackItem orderSnackItem) {
-        BigDecimal quantityAsBigDecimal = BigDecimal.valueOf(orderSnackItem.getQuantity());
-        return orderSnackItem.getPrice().multiply(quantityAsBigDecimal);
     }
 
 }

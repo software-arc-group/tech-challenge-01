@@ -5,6 +5,7 @@ import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEn
 import br.com.soat8.techchallenge.product.core.entities.Product;
 import br.com.soat8.techchallenge.product.core.entities.ProductCategory;
 import br.com.soat8.techchallenge.product.core.exceptions.NotFoundProductException;
+import br.com.soat8.techchallenge.product.utils.ProductMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,15 @@ public class ProductAdapter implements ProductPort {
     @Autowired
     private final ProductRepository productRepository;
 
+    @Autowired
+    private final ProductMapper productMapper;
+
 
     @Override
     public void saveProduct(Product product, ProductCategory productCategory) {
         saveOrUpdate(product, productCategory);
     }
+
 
     @Transactional
     @Override
@@ -44,6 +49,11 @@ public class ProductAdapter implements ProductPort {
     @Override
     public Boolean findById(UUID id) {
         return productRepository.findById(id).isPresent();
+    }
+
+    @Override
+    public Product getById(UUID productId) {
+        return productMapper.toProduct(productRepository.getByProductId(productId));
     }
 
     private void saveOrUpdate(Product product, ProductCategory productCategory) {

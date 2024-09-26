@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core.port.in;
+package br.com.soat8.techchallenge.order.core.usecases.in;
 
 import br.com.soat8.techchallenge.domain.payment.PaymentNotification;
 

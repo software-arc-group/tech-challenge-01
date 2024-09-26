@@ -1,6 +1,5 @@
 package br.com.soat8.techchallenge.adapter.out.persistence.specification;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackEntity;
 import br.com.soat8.techchallenge.adapter.out.persistence.entity.enums.OrderProgress;
 import org.springframework.data.jpa.domain.Specification;
 

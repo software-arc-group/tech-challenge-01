@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.core.port.out;
+package br.com.soat8.techchallenge.order.core.usecases.out;
 
 import com.google.zxing.WriterException;
 

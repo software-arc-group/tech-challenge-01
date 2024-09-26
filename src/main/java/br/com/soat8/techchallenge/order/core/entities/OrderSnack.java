@@ -1,6 +1,5 @@
-package br.com.soat8.techchallenge.domain;
+package br.com.soat8.techchallenge.order.core.domains;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.domain.QRCodeData;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;

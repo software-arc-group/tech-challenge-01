@@ -1,4 +1,4 @@
-package br.com.soat8.techchallenge.domain.payment;
+package br.com.soat8.techchallenge.order.core.domains.payment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

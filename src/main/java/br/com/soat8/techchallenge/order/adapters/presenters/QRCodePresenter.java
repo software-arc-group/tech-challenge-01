@@ -1,6 +1,6 @@
-package br.com.soat8.techchallenge.adapter.out.persistence.adapter;
+package br.com.soat8.techchallenge.order.adapters;
 
-import br.com.soat8.techchallenge.core.port.out.QRCodePort;
+import br.com.soat8.techchallenge.order.core.port.out.QRCodePort;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;

@@ -1,6 +1,5 @@
-package br.com.soat8.techchallenge.adapter.out.persistence.retository;
+package br.com.soat8.techchallenge.adapter.out.persistence.repository;
 
-import br.com.soat8.techchallenge.adapter.out.persistence.entity.OrderSnackEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

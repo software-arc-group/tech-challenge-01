@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -29,15 +30,15 @@ public class SaveProductService implements SaveProductUseCase {
 
     @Override
     public void saveProduct(ProductRequest productRequest) {
-        Product product = productMapper.toRequest(productRequest);
-        ProductCategory productCategory = getProductCategory(product);
-        productPort.saveProduct(product, productCategory);
+        Product product = productMapper.toProduct(productRequest);
+        product.setCategory(getProductCategory(productRequest.getCategoryId()));
+        productPort.saveOrUpdate(product);
     }
 
-    private ProductCategory getProductCategory(Product product) {
-        ProductCategory productCategory = productCategoryPort.findProductCategory(product.getCategoryId());
+    private ProductCategory getProductCategory(UUID id) {
+        ProductCategory productCategory = productCategoryPort.findProductCategory(id);
         if (Objects.isNull(productCategory)) {
-            throw new InvalidCategoryException("Invalid Category: " + product.getCategoryId());
+            throw new InvalidCategoryException("Invalid Category: " + id);
         }
         return productCategory;
     }

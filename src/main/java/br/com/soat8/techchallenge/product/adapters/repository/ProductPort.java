@@ -7,8 +7,7 @@ import java.util.UUID;
 
 public interface ProductPort {
 
-    void saveProduct(Product product, ProductCategory productCategory);
-
+    Product saveOrUpdate(Product product);
     void removeProduct(UUID productId);
     Boolean findById(UUID productId);
     Product getById(UUID productId);

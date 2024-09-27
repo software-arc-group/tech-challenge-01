@@ -4,6 +4,8 @@ import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductCa
 import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;
 import br.com.soat8.techchallenge.product.core.entities.Product;
 import br.com.soat8.techchallenge.product.core.entities.ProductCategory;
+import br.com.soat8.techchallenge.product.utils.ProductCategoryMapper;
+import br.com.soat8.techchallenge.product.utils.ProductMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,39 +20,12 @@ public class ProductCategoryAdapter implements ProductCategoryPort {
 
     @Autowired
     private final ProductCategoryRepository productCategoryRepository;
+    @Autowired
+    private final ProductCategoryMapper productCategoryMapper;
 
 
     @Override
     public ProductCategory findProductCategory(UUID productCategoryId) {
-        return productCategoryRepository.findById(productCategoryId).map(this::build).orElse(null);
+        return productCategoryRepository.findById(productCategoryId).map(productCategoryMapper::toProductCategory).orElse(null);
     }
-
-    private ProductCategory build(ProductCategoryEntity entity) {
-        if (entity == null) {
-            return null;
-        }
-        return ProductCategory.builder()
-                .productCategoryId(entity.getProductCategoryId())
-                .description(entity.getDescription())
-                .products(buildProductList(entity.getProducts()))
-                .build();
-    }
-
-    private List<Product> buildProductList(List<ProductEntity> products) {
-        return products.stream().map(this::buildProduct).collect(Collectors.toList());
-    }
-
-    private Product buildProduct(ProductEntity entity) {
-        if (entity == null) {
-            return null;
-        }
-        return Product.builder()
-                .productId(entity.getProductId())
-                .categoryId(entity.getCategory().getProductCategoryId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .price(entity.getPrice())
-                .build();
-    }
-
 }

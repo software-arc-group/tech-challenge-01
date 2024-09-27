@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -24,26 +25,16 @@ public class ProductAdapter implements ProductPort {
     private final ProductMapper productMapper;
 
 
-    @Override
-    public void saveProduct(Product product, ProductCategory productCategory) {
-        saveOrUpdate(product, productCategory);
-    }
-
-
     @Transactional
     @Override
     public void removeProduct(UUID productId) {
-        productRepository.findById(productId)
-                .ifPresentOrElse(
-                        product -> {
-                            // Remove todas as dependências antes de excluir o produto
-                            product.getOrderItems().clear();
-                            productRepository.delete(product);
-                        },
-                        () -> {
-                            throw new NotFoundProductException("Product not found with ID: " + productId);
-                        }
-                );
+        Optional<ProductEntity> entity = productRepository.findById(productId);
+        if (entity.isPresent()) {
+            productRepository.deleteByProductId(productId);
+        } else {
+            System.out.println("Entity not found");
+        }
+
     }
 
     @Override
@@ -53,24 +44,20 @@ public class ProductAdapter implements ProductPort {
 
     @Override
     public Product getById(UUID productId) {
-        return productMapper.toProduct(productRepository.getByProductId(productId));
+        return productMapper.toProduct(productRepository.findById(productId).get());
     }
 
-    private void saveOrUpdate(Product product, ProductCategory productCategory) {
-        ProductEntity productEntity = new ProductEntity();
-        ProductCategoryEntity productCategoryEntity = new ProductCategoryEntity();
 
-        productCategoryEntity.setProductCategoryId(productCategory.getProductCategoryId());
-        productEntity.setName(product.getName());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setCategory(productCategoryEntity);
-        productEntity.setDescription(product.getDescription());
+    @Override
+    public Product saveOrUpdate(Product product) {
+
+        ProductEntity productEntity = productMapper.toEntity(product);
 
         if (product.getProductId() != null) {
             productEntity.setProductId(product.getProductId());
         }
-
-        productRepository.save(productEntity);
+        return productMapper.toProduct(productRepository.save(productEntity));
     }
+
 
 }

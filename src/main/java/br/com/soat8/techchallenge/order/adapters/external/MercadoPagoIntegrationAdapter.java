@@ -56,11 +56,11 @@ public class MercadoPagoIntegrationAdapter implements MercadoPagoIntegrationPort
 
         mercadoPagoOrder.setItems(orderSnack.getItems().stream()
                 .map(item -> new MercadoPagoItem(
-                        item.getProductId().toString(),
-                        item.getPrice(),
+                        item.getProduct().getProductId().toString(),
+                        item.getProduct().getPrice(),
                         item.getQuantity(),
                         "unit",
-                        item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))
+                        item.getAmount()
                         ))
                 .collect(Collectors.toList()));
 

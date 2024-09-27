@@ -21,10 +21,14 @@ import java.util.UUID;
 @Builder
 public class OrderSnackItem {
     private UUID orderSnackItemId;
+
+    private OrderSnack orderSnack;
+
     private BigDecimal amount;
 
     private Product product;
 
     @Min(value = 1, message = "The quantity must be more than zero.")
     private Integer quantity;
+
 }

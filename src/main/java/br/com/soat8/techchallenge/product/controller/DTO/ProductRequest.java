@@ -1,9 +1,7 @@
 package br.com.soat8.techchallenge.product.controller.DTO;
 
-import br.com.soat8.techchallenge.product.controller.group.OnUpdate;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;

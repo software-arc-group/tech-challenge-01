@@ -1,6 +1,7 @@
 package br.com.soat8.techchallenge.order.core.entities;
 
 import br.com.soat8.techchallenge.client.core.entities.Customer;
+import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
@@ -17,17 +18,32 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class OrderSnack {
     private UUID orderSnackId;
-    private String progress;
+    private String progress = OrderProgressRequest.RECEIVED.name();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     Customer customer;
 
     private List<OrderSnackItem> items;
     @JsonIgnore
     private BigDecimal totalPrice;
+
+    public void setItems(List<OrderSnackItem> items) {
+        this.items = items;
+        this.totalPrice = calculateItems(items);
+    }
+
+    private BigDecimal calculateItems(List<OrderSnackItem> items) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if (items != null){
+            for (OrderSnackItem item : items) {
+                BigDecimal itemTotal = item.getAmount();
+                totalPrice = totalPrice.add(itemTotal);
+            }
+        }
+        return totalPrice;
+    }
 }

@@ -46,8 +46,9 @@ public class CreateOrderSnackService implements CreateOrderSnackUseCase {
 
         Customer customer = searchCustomerIdUseCase.searchById(orderSnackRequest.getCustomerId());
         List<OrderSnackItem> listOfOrderItems = generateListOfOrderItems(orderSnackRequest.getItems());
-        OrderSnack orderSnack = OrderSnack.builder().items(listOfOrderItems).customer(customer).createdAt(LocalDateTime.now()).build();
-        orderSnack.setTotalPrice(calculateTotalPrice(orderSnack));
+        OrderSnack orderSnack = new OrderSnack();
+        orderSnack.setItems(listOfOrderItems);
+        orderSnack.setCustomer(customer);
         String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
         try {
             byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData, 250, 250);
@@ -68,16 +69,9 @@ public class CreateOrderSnackService implements CreateOrderSnackUseCase {
         Product product = getProductUseCase.getProduct(productId);
         BigDecimal quantityAsBigDecimal = BigDecimal.valueOf(qtd);
         BigDecimal fullValue = product.getPrice().multiply(quantityAsBigDecimal);
-        return new OrderSnackItem(null, fullValue, product,qtd );
+        return new OrderSnackItem(null, null , fullValue, product,qtd );
     }
 
-    private BigDecimal calculateTotalPrice(OrderSnack orderSnack) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        for (OrderSnackItem item : orderSnack.getItems()) {
-            BigDecimal itemTotal = item.getAmount();
-            totalPrice = totalPrice.add(itemTotal);
-        }
-        return totalPrice;
-    }
+
 
 }

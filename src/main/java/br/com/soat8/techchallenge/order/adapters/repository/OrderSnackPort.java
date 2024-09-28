@@ -4,11 +4,12 @@ import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface OrderSnackPort {
 
     List<OrderSnack> listOrderSnack(OrderProgress progress, String cpf);
 
-    void saveOrderSnack(OrderSnack orderSnack);
+    void saveOrderSnack(OrderSnack orderSnack, UUID externalReference);
 
 }

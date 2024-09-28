@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -37,11 +38,12 @@ public class OrderSnackAdapter implements OrderSnackPort {
 
     @Transactional
     @Override
-    public void saveOrderSnack(OrderSnack orderSnack) {
+    public void saveOrderSnack(OrderSnack orderSnack, UUID externalReference) {
         if(orderSnack == null){
             return;
         }
         OrderSnackEntity orderSnackEntity =  orderSnackMapper.toEntity(orderSnack);
+        orderSnackEntity.setExternalOrderId(String.valueOf(externalReference));
         orderSnackRepository.save(orderSnackEntity);
     }
 }

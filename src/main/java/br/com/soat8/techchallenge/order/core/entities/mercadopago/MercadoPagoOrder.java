@@ -19,4 +19,6 @@ public class MercadoPagoOrder {
     private String title;
     @JsonProperty("total_amount")
     private BigDecimal totalAmount;
+    @JsonProperty("notification_url")
+    private String notificationUrl;
 }

@@ -2,6 +2,7 @@ package br.com.soat8.techchallenge.order.adapters.repository.entities;
 
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.client.adapters.repository.entity.CustomerEntity;
+import br.com.soat8.techchallenge.order.core.entities.enums.PaymentProgress;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,10 +48,16 @@ public class OrderSnackEntity implements Serializable {
     @Column(name = "progress", nullable = false)
     private OrderProgress progress;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_progress", nullable = false)
+    private PaymentProgress paymentProgress;
+
     @JdbcTypeCode(Types.TIMESTAMP)
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
+    @Column(name = "external_order_id", nullable = false)
+    private String externalOrderId;
 }

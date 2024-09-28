@@ -9,6 +9,7 @@ import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackPort;
 import br.com.soat8.techchallenge.order.controller.QRCodePort;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnackItem;
+import br.com.soat8.techchallenge.order.core.entities.mercadopago.QRCodeData;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.CreateOrderSnackUseCase;
 import br.com.soat8.techchallenge.order.utils.OrderSnackMapper;
 import br.com.soat8.techchallenge.product.core.entities.Product;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -43,16 +45,17 @@ public class CreateOrderSnackService implements CreateOrderSnackUseCase {
 
     @Override
     public byte[] requestOrder(OrderSnackRequest  orderSnackRequest) {
+        UUID externalReference = UUID.randomUUID();
 
         Customer customer = searchCustomerIdUseCase.searchById(orderSnackRequest.getCustomerId());
         List<OrderSnackItem> listOfOrderItems = generateListOfOrderItems(orderSnackRequest.getItems());
         OrderSnack orderSnack = new OrderSnack();
         orderSnack.setItems(listOfOrderItems);
         orderSnack.setCustomer(customer);
-        String qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack);
+        QRCodeData qrData = mercadoPagoIntegrationPort.requestQrData(orderSnack, externalReference);
         try {
-            byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData, 250, 250);
-            orderSnackPort.saveOrderSnack(orderSnack);
+            byte[] qrCodeImg = qrCodePort.generateQRCodeImage(qrData.getQrData(), 250, 250);
+            orderSnackPort.saveOrderSnack(orderSnack, externalReference);
             return qrCodeImg;
         } catch (WriterException | IOException e) {
             throw new RuntimeException(e);

@@ -12,4 +12,8 @@ public interface OrderSnackPort {
 
     void saveOrderSnack(OrderSnack orderSnack, UUID externalReference);
 
+    void updateOrderSnackProgress (OrderProgress orderProgress, String orderSnackId);
+
+    OrderProgress getOrderSnackProgress (String orderSnackId);
+
 }

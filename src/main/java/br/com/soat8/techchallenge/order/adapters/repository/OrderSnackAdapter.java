@@ -20,6 +20,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
 
     @Autowired
     private final OrderSnackRepository orderSnackRepository;
+
     @Autowired
     private final OrderSnackMapper orderSnackMapper;
 
@@ -46,4 +47,22 @@ public class OrderSnackAdapter implements OrderSnackPort {
         orderSnackEntity.setExternalOrderId(String.valueOf(externalReference));
         orderSnackRepository.save(orderSnackEntity);
     }
+
+    @Override
+    public OrderProgress getOrderSnackProgress(String orderSnackId) {
+        return orderSnackRepository.findById(UUID.fromString(orderSnackId))
+                .map(OrderSnackEntity::getProgress)
+                .orElse(null); 
+    }
+
+    @Transactional
+    @Override
+    public void updateOrderSnackProgress(OrderProgress newProgress, String orderSnackId) {
+        orderSnackRepository.findById(UUID.fromString(orderSnackId)).ifPresent(orderSnackEntity -> {
+            orderSnackEntity.setProgress(newProgress);
+            orderSnackRepository.save(orderSnackEntity);
+        });
+    }
+
+
 }

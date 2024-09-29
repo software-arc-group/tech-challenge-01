@@ -10,8 +10,4 @@ public interface ListOrderSnackUseCase {
 
     public List<OrderSnack> listOrderSnack(OrderProgressRequest progress, String cpf);
 
-    void updateOrderSnackProgress (OrderProgress orderProgress, String orderSnackId);
-
-    OrderProgress getOrderSnackProgress (String orderSnackId);
-
 }

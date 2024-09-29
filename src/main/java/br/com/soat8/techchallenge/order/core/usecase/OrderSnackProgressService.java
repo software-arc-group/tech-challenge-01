@@ -1,20 +1,16 @@
 package br.com.soat8.techchallenge.order.core.usecase;
 
 import br.com.soat8.techchallenge.order.adapters.repository.OrderSnackPort;
-import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
-import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
-import br.com.soat8.techchallenge.order.core.usecase.interfaces.ListOrderSnackUseCase;
+import br.com.soat8.techchallenge.order.core.usecase.interfaces.OrderSnackProgressUseCase;
 import br.com.soat8.techchallenge.order.utils.OrderProgressMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
-public class ListOrderSnackService implements ListOrderSnackUseCase {
+public class OrderSnackProgressService implements OrderSnackProgressUseCase {
 
     @Autowired
     private final OrderSnackPort orderSnackPort;
@@ -23,9 +19,13 @@ public class ListOrderSnackService implements ListOrderSnackUseCase {
     private final OrderProgressMapper progressMapper;
 
     @Override
-    public List<OrderSnack> listOrderSnack(OrderProgressRequest progress, String cpf) {
-        OrderProgress orderProgress = progressMapper.toOrderProgress(progress);
-        return orderSnackPort.listOrderSnack(orderProgress, cpf);
+    public OrderProgress getOrderSnackProgress(String orderSnackId) {
+        return orderSnackPort.getOrderSnackProgress(orderSnackId);
+    }
+
+    @Override
+    public void updateOrderSnackProgress(OrderProgress orderProgress, String orderSnackId) {
+        orderSnackPort.updateOrderSnackProgress(orderProgress, orderSnackId);
     }
 
 }

@@ -52,7 +52,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
     public OrderProgress getOrderSnackProgress(String orderSnackId) {
         return orderSnackRepository.findById(UUID.fromString(orderSnackId))
                 .map(OrderSnackEntity::getProgress)
-                .orElse(null); 
+                .orElse(null);
     }
 
     @Transactional

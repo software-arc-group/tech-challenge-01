@@ -15,8 +15,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ListOrderSnackService implements ListOrderSnackUseCase {
+
     @Autowired
     private final OrderSnackPort orderSnackPort;
+
     @Autowired
     private final OrderProgressMapper progressMapper;
 
@@ -24,6 +26,16 @@ public class ListOrderSnackService implements ListOrderSnackUseCase {
     public List<OrderSnack> listOrderSnack(OrderProgressRequest progress, String cpf) {
         OrderProgress orderProgress = progressMapper.toOrderProgress(progress);
         return orderSnackPort.listOrderSnack(orderProgress, cpf);
+    }
+
+    @Override
+    public OrderProgress getOrderSnackProgress(String orderSnackId) {
+        return orderSnackPort.getOrderSnackProgress(orderSnackId);
+    }
+
+    @Override
+    public void updateOrderSnackProgress(OrderProgress orderProgress, String orderSnackId) {
+        orderSnackPort.updateOrderSnackProgress(orderProgress, orderSnackId);
     }
 
 }

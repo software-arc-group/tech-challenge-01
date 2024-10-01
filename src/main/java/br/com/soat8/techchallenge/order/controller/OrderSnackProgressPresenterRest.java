@@ -12,7 +12,7 @@ public class OrderSnackProgressPresenterRest implements OrderSnackProgressPresen
     @Override
     public ResponseEntity<Void> generateOrderSnackProgressResponse(OrderProgress orderProgress, String orderSnackId) {
 
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(customer.getId()).toUri()).build();
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(orderSnackId).toUri()).build();
 
     }
 }

@@ -6,10 +6,15 @@ import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.CreateOrderSnackUseCase;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.GetOrderSnackProgressUseCase;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.UpdateOrderSnackProgressUseCase;
+import br.com.soat8.techchallenge.product.controller.DTO.ProductRequest;
+import br.com.soat8.techchallenge.product.controller.group.OnUpdate;
+import br.com.soat8.techchallenge.product.core.entities.Product;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,13 +41,10 @@ public class OrderController implements OrderSnackProgressApi {
         return ResponseEntity.ok(serviceCreateOrderSnackUseCase.requestOrder(orderSnack));
     }
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<Void> updateOrderSnackProgress(@Valid @RequestBody OrderProgress orderProgress, String orderSnackId) {
-        OrderProgress createdCustomer = serviceUpdateOrderSnackProgressUseCase.updateOrderSnackProgress(orderProgress, orderSnackId);
-        return serviceOrderSnackProgressUseCase.generateOrderSnackProgressResponse(createdCustomer);
-
-        //return ResponseEntity.ok(serviceUpdateOrderSnackProgressUseCase.updateOrderSnackProgress(orderProgress, orderSnackId));
-
+        serviceUpdateOrderSnackProgressUseCase.updateOrderSnackProgress(orderProgress, orderSnackId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping

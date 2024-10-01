@@ -6,6 +6,6 @@ public interface OrderSnackProgressUseCase {
 
     void updateOrderSnackProgress (OrderProgress orderProgress, String orderSnackId);
 
-    OrderProgress getOrderSnackProgress (String orderSnackId);
+    OrderProgress searchOrderSnackProgress (String orderSnackId);
 
 }

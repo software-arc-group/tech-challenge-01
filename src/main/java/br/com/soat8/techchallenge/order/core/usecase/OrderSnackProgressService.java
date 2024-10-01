@@ -19,8 +19,8 @@ public class OrderSnackProgressService implements OrderSnackProgressUseCase {
     private final OrderProgressMapper progressMapper;
 
     @Override
-    public OrderProgress getOrderSnackProgress(String orderSnackId) {
-        return orderSnackPort.getOrderSnackProgress(orderSnackId);
+    public OrderProgress searchOrderSnackProgress(String orderSnackId) {
+        return orderSnackPort.searchOrderSnackProgress(orderSnackId);
     }
 
     @Override

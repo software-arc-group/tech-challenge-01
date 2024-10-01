@@ -49,7 +49,7 @@ public class OrderSnackAdapter implements OrderSnackPort {
     }
 
     @Override
-    public OrderProgress getOrderSnackProgress(String orderSnackId) {
+    public OrderProgress searchOrderSnackProgress(String orderSnackId) {
         return orderSnackRepository.findById(UUID.fromString(orderSnackId))
                 .map(OrderSnackEntity::getProgress)
                 .orElse(null);

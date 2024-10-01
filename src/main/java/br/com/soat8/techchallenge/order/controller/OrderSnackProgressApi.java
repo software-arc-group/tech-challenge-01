@@ -7,6 +7,6 @@ public interface OrderSnackProgressApi {
 
     ResponseEntity<Void> updateOrderSnackProgress (OrderProgress orderProgress, String orderSnackId);
 
-    ResponseEntity<OrderProgress> searchOrderSnackProgress (String orderSnackId);
+    ResponseEntity<OrderProgress> getOrderSnackProgress (String orderSnackId);
 
 }

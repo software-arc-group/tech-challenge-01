@@ -14,6 +14,6 @@ public interface OrderSnackPort {
 
     void updateOrderSnackProgress (OrderProgress orderProgress, String orderSnackId);
 
-    OrderProgress searchOrderSnackProgress (String orderSnackId);
+    OrderProgress getOrderSnackProgress (String orderSnackId);
 
 }

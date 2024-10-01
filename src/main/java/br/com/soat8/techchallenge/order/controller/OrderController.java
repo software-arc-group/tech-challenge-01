@@ -4,7 +4,7 @@ import br.com.soat8.techchallenge.client.controller.CustomerController;
 import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.CreateOrderSnackUseCase;
-import br.com.soat8.techchallenge.order.core.usecase.interfaces.SearchOrderSnackProgressUseCase;
+import br.com.soat8.techchallenge.order.core.usecase.interfaces.GetOrderSnackProgressUseCase;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.UpdateOrderSnackProgressUseCase;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class OrderController implements OrderSnackProgressApi {
     private UpdateOrderSnackProgressUseCase serviceUpdateOrderSnackProgressUseCase;
 
     @Autowired
-    private SearchOrderSnackProgressUseCase serviceSearchOrderSnackProgressUseCase;
+    private GetOrderSnackProgressUseCase serviceGetOrderSnackProgressUseCase;
 
     @Autowired
     private final OrderSnackProgressPresenterRest serviceOrderSnackProgressPresenterRest;
@@ -46,8 +46,8 @@ public class OrderController implements OrderSnackProgressApi {
     }
 
     @GetMapping
-    public ResponseEntity<OrderProgress> searchOrderSnackProgress( String orderSnackId) {
-        OrderProgress result = serviceSearchOrderSnackProgressUseCase.searchOrderSnackProgress(orderSnackId);
+    public ResponseEntity<OrderProgress> getOrderSnackProgress( String orderSnackId) {
+        OrderProgress result = serviceGetOrderSnackProgressUseCase.getOrderSnackProgress(orderSnackId);
         return ResponseEntity.ok(result);
     }
 

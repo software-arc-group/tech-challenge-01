@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class GetOrderSnackProgressService implements GetOrderSnackProgressUseCase {
@@ -15,11 +17,11 @@ public class GetOrderSnackProgressService implements GetOrderSnackProgressUseCas
     @Autowired
     private final OrderSnackPort orderSnackPort;
 
-    @Autowired
-    private final OrderProgressMapper progressMapper;
+    //@Autowired
+    //private final OrderProgressMapper progressMapper;
 
     @Override
-    public OrderProgress getOrderSnackProgress(String orderSnackId) {
+    public OrderProgress getOrderSnackProgress(UUID orderSnackId) {
         return orderSnackPort.getOrderSnackProgress(orderSnackId);
     }
 

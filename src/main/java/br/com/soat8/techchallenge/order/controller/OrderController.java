@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(CustomerController.BASE_URL)
@@ -42,13 +44,13 @@ public class OrderController implements OrderSnackProgressApi {
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateOrderSnackProgress(@Valid @RequestBody OrderProgress orderProgress, String orderSnackId) {
+    public ResponseEntity<Void> updateOrderSnackProgress(@Valid @RequestBody OrderProgress orderProgress, UUID orderSnackId) {
         serviceUpdateOrderSnackProgressUseCase.updateOrderSnackProgress(orderProgress, orderSnackId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<OrderProgress> getOrderSnackProgress( String orderSnackId) {
+    public ResponseEntity<OrderProgress> getOrderSnackProgress( UUID orderSnackId) {
         OrderProgress result = serviceGetOrderSnackProgressUseCase.getOrderSnackProgress(orderSnackId);
         return ResponseEntity.ok(result);
     }

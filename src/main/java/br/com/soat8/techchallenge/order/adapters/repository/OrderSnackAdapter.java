@@ -4,6 +4,8 @@ import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackE
 import br.com.soat8.techchallenge.order.utils.OrderSnackMapper;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
+import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;
+import br.com.soat8.techchallenge.product.core.entities.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -49,19 +52,27 @@ public class OrderSnackAdapter implements OrderSnackPort {
     }
 
     @Override
-    public OrderProgress getOrderSnackProgress(String orderSnackId) {
-        return orderSnackRepository.findById(UUID.fromString(orderSnackId))
-                .map(OrderSnackEntity::getProgress)
-                .orElse(null);
+    public OrderProgress getOrderSnackProgress(UUID orderSnackId) {
+        OrderProgress result = null;
+        Optional<OrderSnackEntity> orderSnack = orderSnackRepository.findById(orderSnackId);
+        if(orderSnack.isPresent()){
+            result = orderSnack.get().getProgress();
+        }
+        return result;
     }
 
     @Transactional
     @Override
-    public void updateOrderSnackProgress(OrderProgress newProgress, String orderSnackId) {
-        orderSnackRepository.findById(UUID.fromString(orderSnackId)).ifPresent(orderSnackEntity -> {
-            orderSnackEntity.setProgress(newProgress);
-            orderSnackRepository.save(orderSnackEntity);
-        });
+    public void updateOrderSnackProgress(OrderProgress newProgress, UUID orderSnackId) {
+        OrderSnack orderSnack = getById(orderSnackId);
+        OrderSnackEntity orderSnackEntity =  orderSnackMapper.toEntity(orderSnack);
+        orderSnackEntity.setProgress(newProgress);
+        orderSnackRepository.save(orderSnackEntity);
+    }
+
+    @Override
+    public OrderSnack getById(UUID orderSnackId) {
+        return orderSnackMapper.toOrderSnack(orderSnackRepository.findById(orderSnackId).get());
     }
 
 }

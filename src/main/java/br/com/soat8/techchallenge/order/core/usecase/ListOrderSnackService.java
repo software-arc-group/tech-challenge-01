@@ -15,8 +15,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ListOrderSnackService implements ListOrderSnackUseCase {
+
     @Autowired
     private final OrderSnackPort orderSnackPort;
+
     @Autowired
     private final OrderProgressMapper progressMapper;
 

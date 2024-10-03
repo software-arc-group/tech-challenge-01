@@ -2,7 +2,6 @@ package br.com.soat8.techchallenge.order.utils;
 
 import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackEntity;
 import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackItemEntity;
-import br.com.soat8.techchallenge.order.controller.DTO.OrderSnackRequest;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnackItem;
 import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;

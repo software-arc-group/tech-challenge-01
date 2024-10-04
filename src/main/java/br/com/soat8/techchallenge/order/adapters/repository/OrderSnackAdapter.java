@@ -1,11 +1,10 @@
 package br.com.soat8.techchallenge.order.adapters.repository;
 
 import br.com.soat8.techchallenge.order.adapters.repository.entities.OrderSnackEntity;
+import br.com.soat8.techchallenge.order.core.exceptions.InvalidOrderSnackProgressException;
 import br.com.soat8.techchallenge.order.utils.OrderSnackMapper;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import br.com.soat8.techchallenge.order.core.entities.OrderSnack;
-import br.com.soat8.techchallenge.product.adapters.repository.entities.ProductEntity;
-import br.com.soat8.techchallenge.product.core.entities.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -64,15 +63,10 @@ public class OrderSnackAdapter implements OrderSnackPort {
     @Transactional
     @Override
     public void updateOrderSnackProgress(OrderProgress newProgress, UUID orderSnackId) {
-        OrderSnack orderSnack = getById(orderSnackId);
+        OrderSnack orderSnack = orderSnackMapper.toOrderSnack(orderSnackRepository.findById(orderSnackId).orElseThrow(() -> new InvalidOrderSnackProgressException("OrderSnack not found")));
         OrderSnackEntity orderSnackEntity =  orderSnackMapper.toEntity(orderSnack);
         orderSnackEntity.setProgress(newProgress);
         orderSnackRepository.save(orderSnackEntity);
-    }
-
-    @Override
-    public OrderSnack getById(UUID orderSnackId) {
-        return orderSnackMapper.toOrderSnack(orderSnackRepository.findById(orderSnackId).get());
     }
 
 }

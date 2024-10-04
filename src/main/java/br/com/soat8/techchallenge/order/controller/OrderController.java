@@ -7,7 +7,6 @@ import br.com.soat8.techchallenge.order.core.usecase.interfaces.CreateOrderSnack
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.GetOrderSnackProgressUseCase;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.ListOrderSnackUseCase;
 import br.com.soat8.techchallenge.order.core.usecase.interfaces.UpdateOrderSnackProgressUseCase;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +40,7 @@ public class OrderController implements OrderSnackProgressApi {
 
     @GetMapping
     public ResponseEntity<List<OrderSnack>> listOrderByProgressAndCustomer(@RequestParam(required = false) OrderProgress progress,
-                                                            @RequestParam(required = false) String cpf) {
+                                                                           @RequestParam(required = false) String cpf) {
         List<OrderSnack> orderSnacks = orderSnackUseCase.listOrderSnack(progress, cpf);
         return ResponseEntity.ok(orderSnacks);
     }
@@ -51,14 +50,14 @@ public class OrderController implements OrderSnackProgressApi {
         return ResponseEntity.ok(serviceCreateOrderSnackUseCase.requestOrder(orderSnack));
     }
 
-    @PutMapping
-    public ResponseEntity<Void> updateOrderSnackProgress(@Valid @RequestBody OrderProgress orderProgress, UUID orderSnackId) {
+    @PutMapping("/{orderSnackId}")
+    public ResponseEntity<Void> updateOrderSnackProgress(@RequestBody OrderProgress orderProgress, @PathVariable("orderSnackId") UUID orderSnackId) {
         serviceUpdateOrderSnackProgressUseCase.updateOrderSnackProgress(orderProgress, orderSnackId);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
-    public ResponseEntity<OrderProgress> getOrderSnackProgress( UUID orderSnackId) {
+    @GetMapping("/{orderSnackId}")
+    public ResponseEntity<OrderProgress> getOrderSnackProgress(@PathVariable("orderSnackId") UUID orderSnackId) {
         OrderProgress result = serviceGetOrderSnackProgressUseCase.getOrderSnackProgress(orderSnackId);
         return ResponseEntity.ok(result);
     }

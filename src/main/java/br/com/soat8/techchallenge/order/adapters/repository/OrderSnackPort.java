@@ -17,6 +17,4 @@ public interface OrderSnackPort {
 
     OrderProgress getOrderSnackProgress (UUID orderSnackId);
 
-    OrderSnack getById(UUID productId);
-
 }

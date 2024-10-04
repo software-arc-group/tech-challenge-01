@@ -17,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderSnack {
+
     private UUID orderSnackId;
     private String progress = OrderProgress.RECEIVED.name();
 
@@ -26,6 +27,7 @@ public class OrderSnack {
     Customer customer;
 
     private List<OrderSnackItem> items;
+
     @JsonIgnore
     private BigDecimal totalPrice;
 

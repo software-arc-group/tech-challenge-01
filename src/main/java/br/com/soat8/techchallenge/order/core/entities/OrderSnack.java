@@ -2,6 +2,7 @@ package br.com.soat8.techchallenge.order.core.entities;
 
 import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
+import br.com.soat8.techchallenge.order.core.entities.enums.PaymentProgress;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,8 @@ public class OrderSnack {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    private String paymentProgress = PaymentProgress.OPPENED.name();
 
     Customer customer;
 

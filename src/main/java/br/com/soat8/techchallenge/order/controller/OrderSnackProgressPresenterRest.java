@@ -1,6 +1,5 @@
 package br.com.soat8.techchallenge.order.controller;
 
-import br.com.soat8.techchallenge.client.core.entities.Customer;
 import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

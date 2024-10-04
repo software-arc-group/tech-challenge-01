@@ -26,7 +26,6 @@ public class OrderSnackAdapter implements OrderSnackPort {
     @Autowired
     private final OrderSnackMapper orderSnackMapper;
 
-
     @Override
     public List<OrderSnack> listOrderSnack(OrderProgress progress, String cpf) {
         Specification<OrderSnackEntity> spec = Specification

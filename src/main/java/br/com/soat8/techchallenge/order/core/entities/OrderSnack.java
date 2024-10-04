@@ -1,12 +1,10 @@
 package br.com.soat8.techchallenge.order.core.entities;
 
 import br.com.soat8.techchallenge.client.core.entities.Customer;
-import br.com.soat8.techchallenge.order.controller.DTO.OrderProgressRequest;
+import br.com.soat8.techchallenge.order.core.entities.enums.OrderProgress;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class OrderSnack {
     private UUID orderSnackId;
-    private String progress = OrderProgressRequest.RECEIVED.name();
+    private String progress = OrderProgress.RECEIVED.name();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt = LocalDateTime.now();

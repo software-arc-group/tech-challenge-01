@@ -27,6 +27,8 @@ public class OrderSnack {
 
     private String paymentProgress = PaymentProgress.OPPENED.name();
 
+    private String externalOrderId;
+
     Customer customer;
 
     private List<OrderSnackItem> items;

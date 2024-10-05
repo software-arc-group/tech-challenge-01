@@ -17,9 +17,6 @@ public class GetOrderSnackProgressService implements GetOrderSnackProgressUseCas
     @Autowired
     private final OrderSnackPort orderSnackPort;
 
-    //@Autowired
-    //private final OrderProgressMapper progressMapper;
-
     @Override
     public OrderProgress getOrderSnackProgress(UUID orderSnackId) {
         return orderSnackPort.getOrderSnackProgress(orderSnackId);

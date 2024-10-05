@@ -33,9 +33,6 @@ public class OrderController implements OrderSnackProgressApi {
     private GetOrderSnackProgressUseCase serviceGetOrderSnackProgressUseCase;
 
     @Autowired
-    private final OrderSnackProgressPresenterRest serviceOrderSnackProgressPresenterRest;
-
-    @Autowired
     private final ListOrderSnackUseCase orderSnackUseCase;
 
     @GetMapping

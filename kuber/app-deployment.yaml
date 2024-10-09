@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: welpedeserra/app:latest
+          image: 3975749817/tech-challenge-01:latest
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:mysql://mysql:3306/lanchonete?useTimezone=true&serverTimezone=America/Sao_Paulo

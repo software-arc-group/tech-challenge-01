@@ -1,17 +1,20 @@
 <h1 align="center">
-  Tech Challenge 01
+  Tech Challenge 02
 </h1>
 
-Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https://on.fiap.com.br/mod/conteudoshtml/view.php?id=407435&c=11255&sesskey=0W0NdVRNSB) faz parte da Fase 1 - Welcome to Software Architecture da pós graduação em Software Architecture da FIAP.
+Monolito para gestão de autoatendimento para lanchonetes. Este desafio faz parte da Fase 2 - Gerenciamento de Kubernetes da FIAP.
 
 ## Colaboradores
 
-- Irlan Carlo do Amaral Gomes - irlan.carlo@gmail.com - RM357811
+- Vinícius Teixeira Sant' Anna - vinitsantanna@gmail.com - RM357722
 - Welington Carlos Alves de Almeida Filho - wcfilho98@gmail.com - RM357115
 - Ludionei da Penha dos Reis - ludioneireis@gmail.com - RM357306
 - Francisco Washington de Almeida Oliveira - franciscowashington59@gmail.com - RM357075
 - Charles Aparecido da Paixão de Jesus Campagnaro - charles.campag@gmail.com - RM357029
 
+
+## Video no Youtube com explicação da Infraestrutura:
+- [Infraestrutura Kubernetes](https://www.youtube.com/watch?v=cu73283Rkl0)
 ## Tecnologias
 
 - [Java](https://docs.oracle.com/en/java/javase/17/)
@@ -26,7 +29,7 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 ## Práticas adotadas
 
 - Domain-Driven Design (DDD)
-- Arquitetura Hexagonal
+- Arquitetura Limpa
 - Consultas com filtros dinâmicos
 - API reativa na web e na camada de banco
 - Uso de DTOs para a API

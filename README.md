@@ -22,6 +22,7 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 - [Swagger](https://swagger.io/docs/)
 - [QR Code do Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference/qr-dynamic/_instore_orders_qr_seller_collectors_user_id_pos_external_pos_id_qrs/post)
 
+
 ## Práticas adotadas
 
 - Domain-Driven Design (DDD)
@@ -41,20 +42,47 @@ Monolito para gestão de autoatendimento para lanchonetes. [Este desafio](https:
 - `INTEGRATION.MERCADOPAGO.URL`: URL da API do MercadoPago.
 - `INTEGRATION.MERCADOPAGO.ACCESSTOKEN`: Token de acesso da API do MercadoPago.
 
-### Executando com Docker
+## Pré-requisitos
 
-1. Construir a imagem Docker:
+Antes de iniciar o projeto, certifique-se de que você possui os seguintes pré-requisitos instalados e configurados:
+
+### 1. [Kubectl](https://kubernetes.io/docs/tasks/tools/)
+- Ferramenta de linha de comando para interagir com clusters Kubernetes.
+- **Instalação no Windows*:
+  ```bash
+  choco install kubernetes-cli
+
+### 2. [Minikube](https://minikube.sigs.k8s.io/docs/)
+- Ferramenta para executar um cluster Kubernetes local.
+- **Instalação no Windows*:
+  ```bash
+  choco install minikube
+### 3. Verificando a instalação
+- Depois de instalar os pré-requisitos, você pode verificar se tudo está configurado corretamente rodando os seguintes comandos:
+- **Instalação no Windows*:
+  ```bash
+   minikube start
+   kubectl version --client
+   minikube status
+  
+### Executando o Cluster Kubernetes
+
+1. Na pasta raiz do projeto execute:
 ``` sh
-docker build -t techchallenge01 .
+kubectl apply -f kuber
 ```
 
-2. Iniciar o container Docker:
+2. Valide se os containers estão READY:
 ``` sh
-docker-compose up
+kubectl get pods
+```
+3. Execute o comando abaixo para conectar a sua rede local a rede do Minikube
+``` sh
+   minikube tunnel
 ```
 
 ## Documentação
-A documentação da API pode ser acessada pelo [Swagger](http://localhost:8081/swagger-ui.html) quando a aplicação está em execução.
+A documentação da API pode ser acessada pelo [Swagger](http://localhost:8080/swagger-ui.html) quando a aplicação está em execução.
 
 
 ## APIs

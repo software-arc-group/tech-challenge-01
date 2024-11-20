@@ -1,4 +1,4 @@
-name: Deploy Application to EKS
+name: Build and Deploy Application to EKS
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - dev
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build Application
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +19,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          java-version: '23'  # Altere para sua versão de Java, se necessário
+          java-version: '23'  # Altere para sua versão de Java
           distribution: 'temurin'
 
       # Passo 3: Build da aplicação (Maven ou Gradle)
@@ -33,17 +34,30 @@ jobs:
       # Passo 5: Build e Push da Imagem Docker
       - name: Build and Push Docker Image
         env:
-          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/my-app"
+          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/tech-challenge"
         run: |
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
 
-      # Passo 6: Configurar kubectl para o EKS
+    outputs:
+      image_uri: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/tech-challenge"
+
+  deploy:
+    name: Deploy to EKS
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      # Passo 1: Checkout do repositório
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Passo 2: Configurar kubectl para o EKS
       - name: Configure kubectl
         run: |
           aws eks update-kubeconfig --region us-east-1 --name my-cluster
 
-      # Passo 7: Atualizar YAML com a nova imagem e aplicar no Kubernetes
+      # Passo 3: Atualizar YAML com a nova imagem e aplicar no Kubernetes
       - name: Deploy to EKS
         env:
           IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/my-app"

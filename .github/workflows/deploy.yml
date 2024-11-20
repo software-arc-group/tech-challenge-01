@@ -1,0 +1,52 @@
+name: Deploy Application to EKS
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Checkout do repositório
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Passo 2: Setup do Java
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '23'  # Altere para sua versão de Java, se necessário
+          distribution: 'temurin'
+
+      # Passo 3: Build da aplicação (Maven ou Gradle)
+      - name: Build Application
+        run: |
+          mvn clean package -DskipTests
+
+      # Passo 4: Login no Amazon ECR (para envio da imagem Docker)
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Passo 5: Build e Push da Imagem Docker
+      - name: Build and Push Docker Image
+        env:
+          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/my-app"
+        run: |
+          docker build -t $IMAGE_URI .
+          docker push $IMAGE_URI
+
+      # Passo 6: Configurar kubectl para o EKS
+      - name: Configure kubectl
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name my-cluster
+
+      # Passo 7: Atualizar YAML com a nova imagem e aplicar no Kubernetes
+      - name: Deploy to EKS
+        env:
+          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/my-app"
+        run: |
+          sed -i "s|IMAGE_URI|$IMAGE_URI|g" kuber/app-deployment.yaml
+          kubectl apply -f kuber/

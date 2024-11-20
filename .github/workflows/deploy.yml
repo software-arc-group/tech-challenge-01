@@ -31,6 +31,8 @@ jobs:
       # Passo 4: Login no Amazon ECR (para envio da imagem Docker)
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          region: ${{ secrets.AWS_REGION }}
 
       # Passo 5: Build e Push da Imagem Docker
       - name: Build and Push Docker Image
@@ -57,7 +59,7 @@ jobs:
       # Passo 2: Configurar kubectl para o EKS
       - name: Configure kubectl
         run: |
-          aws eks update-kubeconfig --region us-east-1 --name my-cluster
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name my-cluster
 
       # Passo 3: Atualizar YAML com a nova imagem e aplicar no Kubernetes
       - name: Deploy to EKS

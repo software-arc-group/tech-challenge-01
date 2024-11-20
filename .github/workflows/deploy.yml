@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
 
     steps:
       # Passo 1: Checkout do repositório
@@ -46,6 +47,7 @@ jobs:
     name: Deploy to EKS
     runs-on: ubuntu-latest
     needs: build
+    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
 
     steps:
       # Passo 1: Checkout do repositório
@@ -60,7 +62,7 @@ jobs:
       # Passo 3: Atualizar YAML com a nova imagem e aplicar no Kubernetes
       - name: Deploy to EKS
         env:
-          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/my-app"
+          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/tech-challenge"
         run: |
           sed -i "s|IMAGE_URI|$IMAGE_URI|g" kuber/app-deployment.yaml
           kubectl apply -f kuber/

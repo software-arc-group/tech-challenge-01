@@ -6,11 +6,10 @@ on:
       - dev
 
 jobs:
+  # Job 1: Build da aplicação
   build:
     name: Build Application
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
-
     steps:
       # Passo 1: Checkout do repositório
       - name: Checkout code
@@ -28,7 +27,20 @@ jobs:
         run: |
           mvn clean package -DskipTests
 
-      # Passo 4: Configurar credenciais da AWS
+    outputs:
+      jar_file: target/*.jar  # Substitua pelo caminho correto do arquivo JAR gerado
+
+  # Job 2: Dockerize a aplicação
+  dockerize:
+    name: Dockerize Application
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # Passo 1: Checkout do repositório
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Passo 2: Configurar credenciais da AWS
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -36,11 +48,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Passo 5: Login no Amazon ECR (para envio da imagem Docker)
+      # Passo 3: Login no Amazon ECR
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      # Passo 6: Build e Push da Imagem Docker
+      # Passo 4: Build e Push da Imagem Docker
       - name: Build and Push Docker Image
         env:
           IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/tech-challenge"
@@ -51,12 +63,11 @@ jobs:
     outputs:
       image_uri: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/tech-challenge"
 
+  # Job 3: Deploy no EKS
   deploy:
     name: Deploy to EKS
     runs-on: ubuntu-latest
-    needs: build
-    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
-
+    needs: dockerize
     steps:
       # Passo 1: Checkout do repositório
       - name: Checkout code
@@ -73,4 +84,12 @@ jobs:
       # Passo 3: Configurar kubectl para o EKS
       - name: Configure kubectl
         run: |
-          aws eks update-kubeconfig --regio
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name my-cluster
+
+      # Passo 4: Atualizar YAML com a nova imagem e aplicar no Kubernetes
+      - name: Deploy to EKS
+        env:
+          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/tech-challenge"
+        run: |
+          sed -i "s|IMAGE_URI|$IMAGE_URI|g" kuber/app-deployment.yaml
+          kubectl apply -f kuber/

@@ -50,6 +50,7 @@ jobs:
         env:
           IMAGE_URI: ${{ env.ECR_REPOSITORY_URL }}
         run: |
+          echo "Using IMAGE_URI: $IMAGE_URI"
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
 

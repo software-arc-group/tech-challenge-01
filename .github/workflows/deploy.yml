@@ -53,10 +53,6 @@ jobs:
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
 
-    outputs:
-      image_uri: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/tech-challenge"
-
-  # Job 3: Deploy no EKS
   deploy:
     name: Deploy to EKS
     runs-on: ubuntu-latest

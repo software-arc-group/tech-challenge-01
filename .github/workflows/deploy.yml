@@ -27,7 +27,6 @@ jobs:
     outputs:
       jar_file: target/*.jar
 
-  # Job 2: Dockerize a aplicação
   dockerize:
     name: Dockerize Application
     runs-on: ubuntu-latest

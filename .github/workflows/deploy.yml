@@ -48,7 +48,7 @@ jobs:
 
       - name: Build and Push Docker Image
         env:
-          IMAGE_URI: "${{ ECR_REPOSITORY_URL }}"
+          IMAGE_URI: "${{ env.ECR_REPOSITORY_URL }}"
         run: |
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
@@ -80,7 +80,7 @@ jobs:
 
       - name: Deploy to EKS
         env:
-          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/tech-challenge"
+          IMAGE_URI: ${{ env.ECR_REPOSITORY_URL }}
         run: |
           sed -i "s|IMAGE_URI|$IMAGE_URI|g" kuber/app-deployment.yaml
           kubectl apply -f kuber/

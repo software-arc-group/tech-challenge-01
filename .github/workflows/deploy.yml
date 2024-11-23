@@ -72,8 +72,10 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Configure kubectl
+        env:
+          CLUSTER_NAME: ${{ vars.CLUSTER_NAME }}
         run: |
-          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name my-cluster
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name $CLUSTER_NAME
 
       - name: Deploy to EKS
         env:

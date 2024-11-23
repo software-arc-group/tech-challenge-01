@@ -48,7 +48,7 @@ jobs:
 
       - name: Build and Push Docker Image
         env:
-          IMAGE_URI: ${{ env.ECR_REPOSITORY_URL }}
+          IMAGE_URI: ${{ vars.ECR_REPOSITORY_URL }}
         run: |
           echo "Using IMAGE_URI: $IMAGE_URI"
           docker build -t $IMAGE_URI .

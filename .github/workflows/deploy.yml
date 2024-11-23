@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,6 +31,7 @@ jobs:
   dockerize:
     name: Dockerize Application
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
     needs: build
     steps:
       - name: Checkout code
@@ -60,9 +62,11 @@ jobs:
     name: Deploy to EKS
     runs-on: ubuntu-latest
     needs: dockerize
+    environment: ${{ github.ref_name == 'dev' && 'dev' || 'production' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3

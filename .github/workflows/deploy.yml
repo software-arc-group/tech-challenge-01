@@ -46,14 +46,9 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Ensure ECR repository exists
-        run: |
-            aws ecr describe-repositories --repository-names tech-challenge --region ${{ secrets.AWS_REGION }}
-            aws ecr create-repository --repository-name tech-challenge --region ${{ secrets.AWS_REGION }}
-
       - name: Build and Push Docker Image
         env:
-          IMAGE_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/tech-challenge"
+          IMAGE_URI: "${{ ECR_REPOSITORY_URL }}"
         run: |
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI

@@ -2,11 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app
+  labels:
+    app: tech-challenge
+    environment: production
 spec:
   type: LoadBalancer
   selector:
-    app: app
+    app: tech-challenge
   ports:
     - protocol: TCP
-      port: 8080::
+      port: 8080
       targetPort: 8080

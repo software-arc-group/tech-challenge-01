@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - dev
+  pull_request:
+    branches:
+      - dev
 
 jobs:
   build:
@@ -81,5 +84,6 @@ jobs:
         env:
           IMAGE_URI: ${{ vars.ECR_REPOSITORY_URL }}
         run: |
-          sed -i "s|IMAGE_URI|$IMAGE_URI|g" kuber/app-deployment.yaml
+          sed -i "s|<ECR_REPOSITORY_URL>|$ECR_REPOSITORY_URL|g" kuber/app-deployment.yaml
           kubectl apply -f kuber/
+          

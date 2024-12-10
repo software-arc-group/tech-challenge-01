@@ -85,4 +85,3 @@ jobs:
         run: |
           sed -i "s|<ECR_REPOSITORY_URL>|$ECR_REPOSITORY_URL|g" kuber/app-deployment.yaml
           kubectl apply -f kuber/
-          

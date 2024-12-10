@@ -56,7 +56,6 @@ jobs:
           echo "Using IMAGE_URI: $IMAGE_URI"
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
-
   deploy:
     name: Deploy to EKS
     runs-on: ubuntu-latest

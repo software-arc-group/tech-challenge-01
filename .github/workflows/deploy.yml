@@ -84,7 +84,6 @@ jobs:
         env:
           IMAGE_URI: ${{ vars.ECR_REPOSITORY_URL }}
         run: |
-          kubectl cluster-info
           sed -i "s|<ECR_REPOSITORY_URL>|$IMAGE_URI|g" kuber/app-deployment.yaml
           kubectl apply -f kuber/namespace.yaml
           kubectl apply -f kuber/service-account.yaml

@@ -7,7 +7,7 @@ metadata:
     app: tech-challenge
     environment: production
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tech-challenge

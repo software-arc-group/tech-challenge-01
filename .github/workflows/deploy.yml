@@ -86,6 +86,7 @@ jobs:
         run: |
           kubectl cluster-info
           sed -i "s|<ECR_REPOSITORY_URL>|$IMAGE_URI|g" kuber/app-deployment.yaml
+          kubectl apply -f kuber/service-account.yaml
           kubectl apply -f kuber/namespace.yaml
           kubectl apply -f kuber/app-service.yaml 
           kubectl apply -f kuber/hpa.yaml 

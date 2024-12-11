@@ -20,11 +20,24 @@ spec:
       containers:
         - name: app
           image: <ECR_REPOSITORY_URL>:latest
-          envFrom:
-            - configMapRef:
-                name: app-config
-            - secretRef:
-                name: app-secrets
+          env:
+            - name: environment
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: environment
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: SPRING_DATASOURCE_USERNAMEs
+            - name: SPRING_LIQUIBASE_ENABLED
+              value: "true"
           ports:
             - containerPort: 8080
           livenessProbe:

@@ -5,6 +5,7 @@ metadata:
 data:
   SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lanchonete?useTimezone=true&serverTimezone=America/Sao_Paulo
   SPRING_DATASOURCE_USERNAME: root
+  environment: dev
 ---
 apiVersion: v1
 kind: Secret

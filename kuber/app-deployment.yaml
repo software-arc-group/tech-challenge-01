@@ -35,7 +35,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: app-config
-                  key: SPRING_DATASOURCE_USERNAMEs
+                  key: SPRING_DATASOURCE_USERNAME
             - name: SPRING_LIQUIBASE_ENABLED
               value: "true"
           ports:

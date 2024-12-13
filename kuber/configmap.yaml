@@ -4,7 +4,7 @@ metadata:
   name: app-config
   namespace: app-namespace
 data:
-  SPRING_DATASOURCE_URL: jdbc:mysql://terraform-20241212233642349200000001.c56iugywe6gv.us-east-1.rds.amazonaws.com:3306/lanchonete?useTimezone=true&serverTimezone=America/Sao_Paulo
+  SPRING_DATASOURCE_URL: jdbc:mysql://terraform-20241212235259468700000001.c56iugywe6gv.us-east-1.rds.amazonaws.com:3306/lanchonete?useTimezone=true&serverTimezone=America/Sao_Paulo
   SPRING_DATASOURCE_USERNAME: admin
   environment: dev
 ---

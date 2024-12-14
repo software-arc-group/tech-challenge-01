@@ -4,7 +4,7 @@ metadata:
   name: app-config
   namespace: app-namespace
 data:
-  SPRING_DATASOURCE_URL: jdbc:mysql://lanchonete-database-1.c56iugywe6gv.us-east-1.rds.amazonaws.com:3306/lanchonete?useTimezone=true&serverTimezone=America/Sao_Paulo
+  SPRING_DATASOURCE_URL: jdbc:mysql://lanchonete-database-1.c56iugywe6gv.us-east-1.rds.amazonaws.com:3306?useTimezone=true&serverTimezone=America/Sao_Paulo
   SPRING_DATASOURCE_USERNAME: admin
   environment: dev
 ---

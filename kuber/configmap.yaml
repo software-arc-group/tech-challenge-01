@@ -15,4 +15,4 @@ metadata:
   namespace: app-namespace
 type: Opaque
 data:
-  SPRING_DATASOURCE_PASSWORD: mysecurepassword
+  SPRING_DATASOURCE_PASSWORD: bXlzZWN1cmVwYXNzd29yZA==

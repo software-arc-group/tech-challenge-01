@@ -38,11 +38,6 @@ spec:
                   key: SPRING_DATASOURCE_USERNAME
             - name: SPRING_LIQUIBASE_ENABLED
               value: "true"
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: app-secrets
-                  key: SPRING_DATASOURCE_PASSWORD
           ports:
             - containerPort: 8080
           livenessProbe:

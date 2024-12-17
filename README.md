@@ -1,8 +1,8 @@
 <h1 align="center">
-  Tech Challenge 02
+  Tech Challenge 03
 </h1>
 
-Monolito para gestão de autoatendimento para lanchonetes. Este desafio faz parte da Fase 2 - Gerenciamento de Kubernetes da FIAP.
+Monolito para gestão de autoatendimento para lanchonetes. Este desafio faz parte da Fase 3 - Distribuição da Aplicação
 
 ## Colaboradores
 
@@ -12,6 +12,45 @@ Monolito para gestão de autoatendimento para lanchonetes. Este desafio faz part
 - Francisco Washington de Almeida Oliveira - franciscowashington59@gmail.com - RM357075
 - Charles Aparecido da Paixão de Jesus Campagnaro - charles.campag@gmail.com - RM357029
 
+## Repos das entregas da fase 3:
+
+- [Repo Lambda Authorizer](https://github.com/software-arc-group/lambda-api-authenticator)
+- [Repo Infraestrutura e Kubernetes](https://github.com/software-arc-group/techchalenge-eks-terraform-infrastructure)
+- [Repo Infraestrutura Banco de Dados](https://github.com/software-arc-group/infra-terraform-database)
+
+Tanto os Repos do **Repo Infraestrutura e Kubernetes**  quanto o repositório de **Repo Infraestrutura Banco de Dados** tem a mesma esteira configurada: esteira terraform. As actions são ativadas quando abrem um PR para main (executando o terraform plan)
+e quando fecham o PR para a main (executando o terraform apply). 
+
+O Repositório de da lambda **Repo Lambda Authorizer** tem uma esteira baseada em comandos aws cli. Ele verifica a existencia da lambda na conta, caso não exista, ela cria uma lambda nova, caso já exista ela atualiza a lambda. Também baixa todas as dependencias em tempo de execução da esteira, consultando o arquivo requirements.txt
+
+Já esse repositório executa atualiza o código do ecr e força atualiza o EKS reexecutando todos os yamls dentro da pasta kuber em qualquer branch que ocorra um push ou um PR e atualiza o gráfico de dependencias da aplicação.
+
+## Métodos de Autorização:
+
+![Métodos de Autenticação](./images/Authorization.png)
+
+Existem 2 métodos de autenticação:
+
+1 - Lambda authorization - para os clientes da Loja.
+2 - Cognito para os funcionários da loja.
+
+- No método 1 utilizamos uma lambda para validar o token do campo *Authorization* do Header da requisição, nele encontramos um token que é criptografado com o algoritmo: HS256, utilizando uma chave simétrica entre o "frontend" e o "backend"
+. Escolhemos esse método de autenticação dado que o requisitos da entrega não davam nenhum detalhe de como seria a implementação da autenticação. A lambda apenas valida se o token está criptografado com a seguinte chave: "secret_jwt_string". Caso esteja criptografado com essa chave o request é considerado valido, e vai entrar no fluxo *logado* ou *não logado*. Porém caso o secret esteja incorreto o retorno será um Código Unauthorized (401).
+Caso a chave esteja correta e o usuário tenha a chave: cpf: "11111111111"( Chave de CPF cadastrado )no payload do token ele entrará no fluxo *logado* da lambda. Caso não tenha um campo cpf no payload ou tenha o campo cpf, mas ele não é um cpf cadastrado no programa, ele será redirecionado para o fluxo *não logado*.
+
+Exemplo de criação de token valido usando o site: [jwt.io](https://jwt.io/):
+![Exemplo de criação de token](./images/jwt.png)
+
+- No método 2 utilizamos o cognito para gerenciamento do poll de usuários. Esse fluxo de autenticação será utilizado para os funcionários da loja e exige uso de usuário e senha para entrar no ambiente logado. De forma que o usuário possa efetuar ações para gerenciamento de Produtos oferecidos, status de pedidos entre outras ações.
+Nesse método de autentificação geramos um token atráves de uma url de login do cognito e passamos esse token header *Authorization* do request. Esse header será validado pelo próprio Cognito e caso contenha um token correto permitirá o acesso a aplicação.
+
+Segue um exemplo de como gerar o token no cognito:
+
+![Token Cognito](./images/TokenCognito.png)
+
+## Infraestrutura Kubernetes
+
+![Desenho infraestrutura Kubernetes](./images/DiagramaArquiteturaFase2.png)
 
 ## Video no Youtube com explicação da Infraestrutura:
 - [Infraestrutura Kubernetes](https://www.youtube.com/watch?v=cu73283Rkl0)

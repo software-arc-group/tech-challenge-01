@@ -23,7 +23,7 @@ e quando fecham o PR para a main (executando o terraform apply).
 
 O Repositório de da lambda **Repo Lambda Authorizer** tem uma esteira baseada em comandos aws cli. Ele verifica a existencia da lambda na conta, caso não exista, ela cria uma lambda nova, caso já exista ela atualiza a lambda. Também baixa todas as dependencias em tempo de execução da esteira, consultando o arquivo requirements.txt
 
-Já esse repositório executa um maven package, em qualquer branch que ocorra um push ou um PR e atualiza o gráfico de dependencias da aplicação.
+Já esse repositório executa atualiza o código do ecr e força atualiza o EKS reexecutando todos os yamls dentro da pasta kuber em qualquer branch que ocorra um push ou um PR e atualiza o gráfico de dependencias da aplicação.
 
 ## Métodos de Autorização:
 
